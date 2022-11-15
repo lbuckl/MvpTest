@@ -1,21 +1,24 @@
 package com.vadim.mvptest
 
-class MainPresenter(val view: MainView) {
-    val model = CountersModel()
-    //Архитектурная ошибка. В качестве практического задания -- исправить
+/**
+ * Презенрёр связывает между собой модель и вью
+ */
+class MainPresenter(private val viewCallback: MainView) {
+    private val model = CountersModel()
+
     fun counterClick(id: Int){
         when(id){
-            R.id.btn_counter1 -> {
-                val nextValue = model.next(0)
-                view.setButtonText(0, nextValue.toString())
+            BUTTON_ONE -> {
+                val nextValue = model.next(BUTTON_ONE)
+                viewCallback.setButtonText(BUTTON_ONE, nextValue.toString())
             }
-            R.id.btn_counter2 -> {
-                val nextValue = model.next(1)
-                view.setButtonText(1, nextValue.toString())
+            BUTTON_TWO -> {
+                val nextValue = model.next(BUTTON_TWO)
+                viewCallback.setButtonText(BUTTON_TWO, nextValue.toString())
             }
-            R.id.btn_counter3 -> {
-                val nextValue = model.next(2)
-                view.setButtonText(2, nextValue.toString())
+            BUTTON_THREE -> {
+                val nextValue = model.next(BUTTON_THREE)
+                viewCallback.setButtonText(BUTTON_THREE, nextValue.toString())
             }
         }
     }

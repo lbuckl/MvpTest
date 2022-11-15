@@ -6,10 +6,15 @@ import android.os.PersistableBundle
 import android.view.View
 import com.vadim.mvptest.databinding.ActivityMainBinding
 
+/**
+ * Основное активити:
+ * Отправляет задачу презентёру [presenter]
+ * Принимает коллбэк от презентёра [setButtonText]
+ */
 class MainActivity : AppCompatActivity(), MainView {
 
     private var binding: ActivityMainBinding? = null
-    val presenter = MainPresenter(this)
+    private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +22,7 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(binding?.root)
 
         val listener = View.OnClickListener {
-            presenter.counterClick(it.id)
+            presenter.counterClick(getNumericViewId(it))
         }
 
         binding?.let {
@@ -25,16 +30,17 @@ class MainActivity : AppCompatActivity(), MainView {
             it.btnCounter2.setOnClickListener(listener)
             it.btnCounter3.setOnClickListener(listener)
         }
-
     }
 
     override fun setButtonText(index: Int, text: String) {
         binding?.let{
             when(index){
-                0 -> it.btnCounter1.text = text
-                1 -> it.btnCounter2.text = text
-                2 -> it.btnCounter3.text = text
+                BUTTON_ONE -> it.btnCounter1.text = text
+                BUTTON_TWO -> it.btnCounter2.text = text
+                BUTTON_THREE -> it.btnCounter3.text = text
             }
         }
     }
+
+
 }
