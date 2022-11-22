@@ -1,25 +1,26 @@
 package com.vadim.mvptest
 
+import android.util.Log
+import moxy.MvpPresenter
+
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class MainPresenter(private val viewCallback: MainView) {
-    private val model = CountersModel()
+class MainPresenter(private val model: CountersModel): MvpPresenter<MainView>() {
 
-    fun counterClick(id: Int){
-        when(id){
-            BUTTON_ONE -> {
-                val nextValue = model.next(BUTTON_ONE)
-                viewCallback.setButtonText(BUTTON_ONE, nextValue.toString())
-            }
-            BUTTON_TWO -> {
-                val nextValue = model.next(BUTTON_TWO)
-                viewCallback.setButtonText(BUTTON_TWO, nextValue.toString())
-            }
-            BUTTON_THREE -> {
-                val nextValue = model.next(BUTTON_THREE)
-                viewCallback.setButtonText(BUTTON_THREE, nextValue.toString())
-            }
-        }
+    fun counterOneClick() {
+        val nextValue = model.next(0)
+        Log.v("@@@","counterOneClick")
+        viewState.setButtonOneText(nextValue.toString())
+    }
+
+    fun counterTwoClick() {
+        val nextValue = model.next(1)
+        viewState.setButtonTwoText(nextValue.toString())
+    }
+
+    fun counterThreeClick() {
+        val nextValue = model.next(2)
+        viewState.setButtonThreeText(nextValue.toString())
     }
 }

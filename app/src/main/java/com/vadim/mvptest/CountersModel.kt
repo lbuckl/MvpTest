@@ -6,7 +6,7 @@ package com.vadim.mvptest
 class CountersModel {
     /**
      * Хранилище значений счётчиков
-     * при расширении, необходимо добавить переменные и логику в функцию [getNumericViewId]
+     * при расширения, необходимо добавить переменные и логику в функцию [getNumericViewId]
      */
     private val counters = mutableListOf(0, 0, 0)
 

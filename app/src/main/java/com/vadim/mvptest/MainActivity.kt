@@ -1,46 +1,42 @@
 package com.vadim.mvptest
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.View
+import android.util.Log
 import com.vadim.mvptest.databinding.ActivityMainBinding
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
 /**
  * Основное активити:
  * Отправляет задачу презентёру [presenter]
- * Принимает коллбэк от презентёра [setButtonText]
  */
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private var binding: ActivityMainBinding? = null
-    private val presenter = MainPresenter(this)
+    private val presenter by moxyPresenter { MainPresenter(CountersModel()) }
+    //private val presenter = MainPresenter(CountersModel())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        val listener = View.OnClickListener {
-            presenter.counterClick(getNumericViewId(it))
-        }
-
         binding?.let {
-            it.btnCounter1.setOnClickListener(listener)
-            it.btnCounter2.setOnClickListener(listener)
-            it.btnCounter3.setOnClickListener(listener)
+            it.btnCounter1.setOnClickListener { presenter.counterOneClick() }
+            it.btnCounter2.setOnClickListener { presenter.counterTwoClick() }
+            it.btnCounter3.setOnClickListener { presenter.counterThreeClick() }
         }
     }
 
-    override fun setButtonText(index: Int, text: String) {
-        binding?.let{
-            when(index){
-                BUTTON_ONE -> it.btnCounter1.text = text
-                BUTTON_TWO -> it.btnCounter2.text = text
-                BUTTON_THREE -> it.btnCounter3.text = text
-            }
-        }
+    override fun setButtonOneText(text: String) {
+        Log.v("@@@","setButtonOneText")
+        binding?.btnCounter1?.text = text
     }
-
+    override fun setButtonTwoText(text: String) {
+        binding?.btnCounter2?.text = text
+    }
+    override fun setButtonThreeText(text: String) {
+        binding?.btnCounter3?.text = text
+    }
 
 }
