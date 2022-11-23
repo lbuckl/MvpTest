@@ -2,25 +2,48 @@ package com.vadim.mvptest.presenter
 
 import com.vadim.mvptest.model.CountersModel
 import com.vadim.mvptest.MainView
+import com.vadim.mvptest.model.GithubUser
+import com.vadim.mvptest.model.GithubUsersRepo
+import com.vadim.mvptest.ui.IUserListPresenter
+import com.vadim.mvptest.ui.UserItemView
 import moxy.MvpPresenter
 
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class MainPresenter(private val model: CountersModel): MvpPresenter<MainView>() {
+class MainPresenter(private val usersRepo: GithubUsersRepo): MvpPresenter<MainView>() {
 
-    fun counterOneClick() {
-        val nextValue = model.next(0)
-        viewState.setButtonOneText(nextValue.toString())
+    /**
+     * Класс для логики и наполенения view
+     */
+    class UsersListPresenter : IUserListPresenter {
+        val users = mutableListOf<GithubUser>()
+
+        override var itemClickListener: ((UserItemView) -> Unit)? = null
+
+        override fun getCount() = users.size
+
+        override fun bindView(view: UserItemView) {
+            val user = users[view.pos]
+            view.setLogin(user.login)
+        }
     }
 
-    fun counterTwoClick() {
-        val nextValue = model.next(1)
-        viewState.setButtonTwoText(nextValue.toString())
+    val usersListPresenter = UsersListPresenter()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        viewState.init()
+        loadData()
+        usersListPresenter.itemClickListener = { itemView ->
+            //TODO: переход на экран пользователя
+        }
     }
 
-    fun counterThreeClick() {
-        val nextValue = model.next(2)
-        viewState.setButtonThreeText(nextValue.toString())
+    private fun loadData() {
+        val users = usersRepo.getUsers()
+        usersListPresenter.users.addAll(users)
+        viewState.updateList()
     }
+
 }
