@@ -1,6 +1,7 @@
-package com.vadim.mvptest
+package com.vadim.mvptest.presenter
 
-import android.util.Log
+import com.vadim.mvptest.model.CountersModel
+import com.vadim.mvptest.MainView
 import moxy.MvpPresenter
 
 /**
@@ -10,7 +11,6 @@ class MainPresenter(private val model: CountersModel): MvpPresenter<MainView>() 
 
     fun counterOneClick() {
         val nextValue = model.next(0)
-        Log.v("@@@","counterOneClick")
         viewState.setButtonOneText(nextValue.toString())
     }
 

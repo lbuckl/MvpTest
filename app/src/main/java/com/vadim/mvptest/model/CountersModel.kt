@@ -1,4 +1,4 @@
-package com.vadim.mvptest
+package com.vadim.mvptest.model
 
 /**
  * Модель для предоставления данных по счётчикам

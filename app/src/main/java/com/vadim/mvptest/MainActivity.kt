@@ -1,8 +1,9 @@
 package com.vadim.mvptest
 
 import android.os.Bundle
-import android.util.Log
 import com.vadim.mvptest.databinding.ActivityMainBinding
+import com.vadim.mvptest.model.CountersModel
+import com.vadim.mvptest.presenter.MainPresenter
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
@@ -14,7 +15,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private var binding: ActivityMainBinding? = null
     private val presenter by moxyPresenter { MainPresenter(CountersModel()) }
-    //private val presenter = MainPresenter(CountersModel())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun setButtonOneText(text: String) {
-        Log.v("@@@","setButtonOneText")
         binding?.btnCounter1?.text = text
     }
     override fun setButtonTwoText(text: String) {
