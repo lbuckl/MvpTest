@@ -1,17 +1,17 @@
 package com.vadim.mvptest.presenter
 
 import com.github.terrakok.cicerone.Router
-import com.vadim.mvptest.ui.UsersView
 import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.GithubUsersRepo
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
+import com.vadim.mvptest.ui.UsersView
 import moxy.MvpPresenter
 
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) :
+class UsersPresenter(private val usersRepo: GithubUsersRepo, val router: Router) :
     MvpPresenter<UsersView>() {
 
     /**

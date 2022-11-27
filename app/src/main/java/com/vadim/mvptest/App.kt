@@ -8,16 +8,20 @@ class App : Application() {
     companion object {
         lateinit var instance: App
     }
+
     //Временно до даггера положим это тут
     private val cicerone: Cicerone<Router> by lazy {
         Cicerone.create()
     }
 
+    // посредник между Navigator и CommandBuffer
     val navigatorHolder get() = cicerone.getNavigatorHolder()
+
+    //Роутер (генератор команд для навигатора)
     val router get() = cicerone.router
+
     override fun onCreate() {
         super.onCreate()
         instance = this
     }
-
 }
