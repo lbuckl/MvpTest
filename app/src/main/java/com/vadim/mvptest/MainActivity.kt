@@ -19,7 +19,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val navigator = AppNavigator(this, R.id.container)
 
     private val presenter by moxyPresenter {
-        MainPresenter(App.instance.router,AndroidScreens())
+        MainPresenter(App.instance.router)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,5 +53,4 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
         presenter.backClicked()
     }
-
 }

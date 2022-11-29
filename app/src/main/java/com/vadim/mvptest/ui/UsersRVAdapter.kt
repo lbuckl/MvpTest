@@ -11,14 +11,16 @@ import com.vadim.mvptest.databinding.RecyclerViewItemBinding
 class UsersRVAdapter(private val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(
-            RecyclerViewItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
+        val viewHolder = ViewHolder(RecyclerViewItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent, false)).apply {
-            itemView.setOnClickListener {
-                presenter.itemClickListener?.invoke(this) }
+                itemView.setOnClickListener {
+                    presenter.itemClickListener?.invoke(this)
+                }
         }
+        return viewHolder
+    }
 
     override fun getItemCount() = presenter.getCount()
 

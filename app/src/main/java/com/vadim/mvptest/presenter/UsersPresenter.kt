@@ -1,8 +1,10 @@
 package com.vadim.mvptest.presenter
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.GithubUsersRepo
+import com.vadim.mvptest.ui.AndroidScreens
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
 import com.vadim.mvptest.ui.UsersView
@@ -11,7 +13,7 @@ import moxy.MvpPresenter
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class UsersPresenter(private val usersRepo: GithubUsersRepo, val router: Router) :
+class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router: Router) :
     MvpPresenter<UsersView>() {
 
     /**
@@ -35,8 +37,9 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, val router: Router)
         super.onFirstViewAttach()
         viewState.init()
         loadData()
-        usersListPresenter.itemClickListener = { itemView ->
-        //TODO: переход на экран пользователя c помощью router.navigateTo
+        usersListPresenter.itemClickListener = {
+            Log.v("@@@","Click")
+            router.navigateTo(AndroidScreens.userInfo())
         }
     }
 
