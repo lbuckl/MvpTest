@@ -1,19 +1,21 @@
 package com.vadim.mvptest.model
 
+import io.reactivex.rxjava3.core.Observable
+
 /**
  * Репозиторий с фиктивными данными, которым будем пользоваться
  * пока нереализуем получение данных из сети:
  */
-class GithubUsersRepo {
-    private val repositories = listOf(
-        GithubUser("login1"),
-        GithubUser("login2"),
-        GithubUser("login3"),
-        GithubUser("login4"),
-        GithubUser("login5")
-    )
-
-    fun getUsers() : List<GithubUser> {
-        return repositories
+class GithubUsersRepo: ExecuteUsers {
+    override fun fromIterable():Observable<GithubUser>{
+        return Observable.fromIterable(
+            listOf(
+                GithubUser("login1"),
+                GithubUser("login2"),
+                GithubUser("login3"),
+                GithubUser("login4"),
+                GithubUser("login5")
+            )
+        )
     }
 }
