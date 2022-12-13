@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
 import com.vadim.mvptest.presenter.UserInfoPresenter
+import com.vadim.mvptest.presenter.UserInfoView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UserInfoFragment: MvpAppCompatFragment(),BackButtonListener {
+class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     companion object {
         fun newInstance() = UserInfoFragment()
