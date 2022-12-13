@@ -1,4 +1,4 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.ui.navigation
 
 import com.github.terrakok.cicerone.Screen
 

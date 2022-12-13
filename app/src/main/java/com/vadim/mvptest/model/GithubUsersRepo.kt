@@ -7,15 +7,22 @@ import io.reactivex.rxjava3.core.Observable
  * пока нереализуем получение данных из сети:
  */
 class GithubUsersRepo: ExecuteUsers {
+
+    private val userList = mutableListOf(
+            GithubUser("login1"),
+            GithubUser("login2"),
+            GithubUser("login3"),
+            GithubUser("login4"),
+            GithubUser("login5")
+    )
+
     override fun fromIterable():Observable<GithubUser>{
         return Observable.fromIterable(
-            listOf(
-                GithubUser("login1"),
-                GithubUser("login2"),
-                GithubUser("login3"),
-                GithubUser("login4"),
-                GithubUser("login5")
-            )
+            userList
         )
+    }
+
+    fun addUser(){
+        userList.add(GithubUser("loginX"))
     }
 }

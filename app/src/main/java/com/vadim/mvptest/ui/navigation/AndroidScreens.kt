@@ -1,6 +1,8 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.ui.navigation
 
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.vadim.mvptest.ui.UserInfoFragment
+import com.vadim.mvptest.ui.UsersFragment
 
 /**
  * Класс для объявления экранов в презентёре

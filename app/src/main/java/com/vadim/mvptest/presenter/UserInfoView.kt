@@ -1,4 +1,4 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.presenter
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
@@ -10,9 +10,5 @@ import moxy.viewstate.strategy.StateStrategyType
  * Если команда такого типа уже есть в очереди, то действующая удалится
  */
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface UsersView : MvpView {
-    //Функция инициализации фрагмента
-    fun init()
-    //Функция обновления данных фрагмента
-    fun updateList()
+interface UserInfoView : MvpView {
 }

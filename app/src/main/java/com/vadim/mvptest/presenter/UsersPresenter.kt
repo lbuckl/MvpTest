@@ -1,13 +1,11 @@
 package com.vadim.mvptest.presenter
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.GithubUsersRepo
-import com.vadim.mvptest.ui.AndroidScreens
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
-import com.vadim.mvptest.ui.UsersView
+import com.vadim.mvptest.ui.navigation.AndroidScreens
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
@@ -41,11 +39,11 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
         viewState.init()
         loadData()
         usersListPresenter.itemClickListener = {
-            Log.v("@@@","Click")
             router.navigateTo(AndroidScreens.userInfo())
         }
     }
 
+    // подписка на поток данных RxJava
     fun loadData() {
         val stringObserver = object : Observer<GithubUser> {
             //Параметр для отписки
@@ -57,16 +55,13 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
 
             override fun onNext(t: GithubUser) {
                 usersListPresenter.users.add(t)
-                Log.v("@@@","OnNext: $t")
             }
 
             override fun onError(e: Throwable) {
-                Log.v("@@@","Error")
             }
 
             override fun onComplete() {
                 viewState.updateList()
-                Log.v("@@@","Complete")
             }
         }
 

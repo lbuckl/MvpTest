@@ -41,7 +41,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userInfo_recyclerview"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -56,24 +56,25 @@
         android:layout_gravity="bottom"
         app:navigationIcon="@drawable/ic_hamburger_menu_bottom_bar"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_anchor="@id/userInfo_appbar"
         app:layout_anchorGravity="bottom">
 
         <TextView
+            android:id="@+id/textView_userInfo_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Имя пользователя"/>
+
+        <TextView
             android:id="@+id/textView_userInfo_rep"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"

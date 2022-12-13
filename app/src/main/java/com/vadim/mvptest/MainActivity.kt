@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.vadim.mvptest.databinding.ActivityMainBinding
 import com.vadim.mvptest.presenter.MainPresenter
-import com.vadim.mvptest.ui.AndroidScreens
 import com.vadim.mvptest.ui.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter

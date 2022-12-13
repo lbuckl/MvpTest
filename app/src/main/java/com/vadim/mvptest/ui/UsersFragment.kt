@@ -8,6 +8,7 @@ import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUsersBinding
 import com.vadim.mvptest.model.GithubUsersRepo
 import com.vadim.mvptest.presenter.UsersPresenter
+import com.vadim.mvptest.presenter.UsersView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -15,7 +16,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     companion object {
         fun newInstance() = UsersFragment()
     }
-
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UsersPresenter by moxyPresenter {
