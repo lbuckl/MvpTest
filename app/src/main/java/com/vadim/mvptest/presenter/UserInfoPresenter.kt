@@ -1,7 +1,6 @@
 package com.vadim.mvptest.presenter
 
 import com.github.terrakok.cicerone.Router
-import com.vadim.mvptest.ui.navigation.AndroidScreens
 import moxy.MvpPresenter
 
 /**

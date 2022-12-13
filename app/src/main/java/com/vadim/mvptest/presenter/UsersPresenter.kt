@@ -65,6 +65,7 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
             }
         }
 
+        //подписка на данные из репозитория
         usersRepo.fromIterable().subscribe(stringObserver)
     }
 

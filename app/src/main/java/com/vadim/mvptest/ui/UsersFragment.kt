@@ -12,6 +12,9 @@ import com.vadim.mvptest.presenter.UsersView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
+/**
+ * Фрагмент для отображения списка пользователей GitHub
+ */
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     companion object {
         fun newInstance() = UsersFragment()

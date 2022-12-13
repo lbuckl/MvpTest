@@ -11,6 +11,9 @@ import com.vadim.mvptest.presenter.UserInfoView
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
+/**
+ * Фрагмент для отображения подробной информации о пользователе
+ */
 class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     companion object {

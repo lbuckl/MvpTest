@@ -16,13 +16,10 @@ class GithubUsersRepo: ExecuteUsers {
             GithubUser("login5")
     )
 
+    //функция запускает поток данных
     override fun fromIterable():Observable<GithubUser>{
         return Observable.fromIterable(
             userList
         )
-    }
-
-    fun addUser(){
-        userList.add(GithubUser("loginX"))
     }
 }
