@@ -7,9 +7,11 @@ import moxy.MvpPresenter
 
 /**
  * Презенрёр связывает между собой модель и вью
+ * @param router - отвечает за навигацию cicerone
  * [onFirstViewAttach] - выполняет действие при первом присоединении View
  * [backClicked]
  */
+
 class MainPresenter(private val router: Router) :
     MvpPresenter<MainView>() {
 
