@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUsersBinding
-import com.vadim.mvptest.model.GithubUsersRepo
+import com.vadim.mvptest.model.repository.GithubUsersRepo
 import com.vadim.mvptest.presenter.UsersPresenter
 import com.vadim.mvptest.presenter.UsersView
 import moxy.MvpAppCompatFragment

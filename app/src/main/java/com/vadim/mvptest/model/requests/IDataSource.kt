@@ -7,8 +7,8 @@ import retrofit2.http.Path
 
 interface IDataSource {
     @GET("/users")
-    fun getAllUsers(): Single<List<GithubUserDTO>>
+    fun getAllUsers(): Single<List<GithubUserDTOItem>>
 
     @GET("/users/{login}")
-    fun getUser(@Path("login") long: String): Single<GithubUserDTO>
+    fun getUser(@Path("login") long: String): Single<GithubUserDTOItem>
 }

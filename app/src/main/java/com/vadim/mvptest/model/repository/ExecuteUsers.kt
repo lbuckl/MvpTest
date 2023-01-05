@@ -1,5 +1,6 @@
-package com.vadim.mvptest.model
+package com.vadim.mvptest.model.repository
 
+import com.vadim.mvptest.model.GithubUser
 import io.reactivex.rxjava3.core.Observable
 
 /**

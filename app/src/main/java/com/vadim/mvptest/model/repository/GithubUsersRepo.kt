@@ -1,5 +1,7 @@
-package com.vadim.mvptest.model
+package com.vadim.mvptest.model.repository
 
+
+import com.vadim.mvptest.model.GithubUser
 import io.reactivex.rxjava3.core.Observable
 
 /**
@@ -9,11 +11,11 @@ import io.reactivex.rxjava3.core.Observable
 class GithubUsersRepo: ExecuteUsers {
 
     private val userList = mutableListOf(
-            GithubUser("login1"),
-            GithubUser("login2"),
-            GithubUser("login3"),
-            GithubUser("login4"),
-            GithubUser("login5")
+            GithubUser(1,"login1",""),
+            GithubUser(2,"login2",""),
+            GithubUser(3,"login3",""),
+            GithubUser(4,"login4",""),
+            GithubUser(5,"login5","")
     )
 
     //функция запускает поток данных
