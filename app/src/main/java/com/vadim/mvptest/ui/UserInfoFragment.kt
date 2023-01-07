@@ -20,17 +20,15 @@ import moxy.ktx.moxyPresenter
 /**
  * Фрагмент для отображения подробной информации о пользователе
  */
-class UserInfoFragment(user: GithubUser): MvpAppCompatFragment(),UserInfoView,BackButtonListener {
+class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     companion object {
-        fun newInstance(user: GithubUser): UserInfoFragment {
-            return UserInfoFragment(user)
+        fun newInstance() = UserInfoFragment()
         }
-    }
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
-        UserInfoPresenter(user, GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
+        UserInfoPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
     
     private var _binding: FragmentUserInfoBinding? = null
     private val binding: FragmentUserInfoBinding

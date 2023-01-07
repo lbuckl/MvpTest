@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.core.Single
 class GithubRepositoryImpl constructor(
     private val usersApi: IDataSource
 ): GithubRepository {
+
     override fun getUsers(): Single<List<GithubUser>> {
         return usersApi.getAllUsers()
             .map { it.map(UserMapper::mapToEntity)}

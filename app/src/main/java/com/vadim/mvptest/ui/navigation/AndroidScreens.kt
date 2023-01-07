@@ -12,5 +12,5 @@ object AndroidScreens : IScreens {
     //Выполняет прикрепление фрагмента UsersFragment
     override fun users() = FragmentScreen { UsersFragment.newInstance() }
     //Выполняет прикрепление фрагмента UserInfoFragment
-    override fun userInfo(user: GithubUser) = FragmentScreen { UserInfoFragment.newInstance(user) }
+    override fun userInfo() = FragmentScreen { UserInfoFragment.newInstance() }
 }

@@ -45,7 +45,8 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
         loadData()
 
         usersListPresenter.itemClickListener = {
-            router.navigateTo(AndroidScreens.userInfo(usersListPresenter.users[it.pos]))
+            usersRepo.lastUserLogin = usersListPresenter.users[it.pos].login
+            router.navigateTo(AndroidScreens.userInfo())
         }
     }
 
