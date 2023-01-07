@@ -4,22 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.vadim.mvptest.App
+import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
+import com.vadim.mvptest.utils.loadImageFromUrl
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 /**
  * Фрагмент для отображения подробной информации о пользователе
  */
-class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
+class UserInfoFragment(login: String): MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     companion object {
-        fun newInstance() = UserInfoFragment()
+        fun newInstance(log: String): UserInfoFragment {
+            return UserInfoFragment(log)
+        }
     }
 
     //Создаём презентёр с cicerone навигацией
@@ -42,4 +47,23 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
     }
 
     override fun backPressed() = presenter.backPressed()
+
+
+    override fun startLoading() {
+        binding.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun endLoading() {
+        binding.progressBar.visibility = View.GONE
+    }
+
+    override fun showInformation(url: String?, name: String, repositoryList: List<String>) {
+        if (url != null) binding.userIcon.loadImageFromUrl(url)
+        else binding.userIcon.loadImageFromUrl(R.drawable.ic_user_placeholder)
+
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
+    }
 }

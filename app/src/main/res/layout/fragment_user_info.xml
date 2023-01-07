@@ -25,6 +25,7 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/user_icon"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:src="@drawable/img_user_header"/>
@@ -49,6 +50,13 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/user_icon"
+        app:layout_anchorGravity="center"/>
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
@@ -61,6 +69,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
+        android:layout_marginTop="16dp"
         app:layout_anchor="@id/userInfo_appbar"
         app:layout_anchorGravity="bottom">
 
