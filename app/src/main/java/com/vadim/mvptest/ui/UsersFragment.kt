@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUsersBinding
+import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.repository.GithubUsersRepo
+import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UsersPresenter
 import com.vadim.mvptest.presenter.UsersView
 import moxy.MvpAppCompatFragment
@@ -22,7 +24,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GithubUsersRepo(), App.instance.router) }
+        UsersPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
 
     private var adapter: UsersRVAdapter? = null
     private var vb: FragmentUsersBinding? = null

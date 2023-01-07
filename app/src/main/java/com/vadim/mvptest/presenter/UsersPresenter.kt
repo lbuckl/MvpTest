@@ -2,6 +2,7 @@ package com.vadim.mvptest.presenter
 
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUser
+import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.repository.GithubUsersRepo
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
@@ -13,7 +14,7 @@ import moxy.MvpPresenter
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router: Router) :
+class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val router: Router) :
     MvpPresenter<UsersView>() {
 
     /**
@@ -45,7 +46,15 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
 
     // подписка на поток данных RxJava
     fun loadData() {
-        val stringObserver = object : Observer<GithubUser> {
+
+        usersRepo.getUsers().subscribe(
+            {
+
+            },
+            {
+
+            })
+        /*val stringObserver = object : Observer<GithubUser> {
             //Параметр для отписки
             var disposable: Disposable? = null
 
@@ -66,7 +75,7 @@ class UsersPresenter(private val usersRepo: GithubUsersRepo, private val router:
         }
 
         //подписка на данные из репозитория
-        usersRepo.fromIterable().subscribe(stringObserver)
+        usersRepo.fromIterable().subscribe(stringObserver)*/
     }
 
     fun backPressed(): Boolean {
