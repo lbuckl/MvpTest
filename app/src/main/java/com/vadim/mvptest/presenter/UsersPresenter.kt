@@ -1,5 +1,6 @@
 package com.vadim.mvptest.presenter
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
@@ -16,7 +17,7 @@ import moxy.MvpPresenter
 class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val router: Router) :
     MvpPresenter<UsersView>() {
 
-    private lateinit var disponcable: Disposable
+    private lateinit var disposable: Disposable
 
     /**
      * Класс для логики и наполенения view
@@ -44,14 +45,14 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
         loadData()
 
         usersListPresenter.itemClickListener = {
-            router.navigateTo(AndroidScreens.userInfo())
+            router.navigateTo(AndroidScreens.userInfo(usersListPresenter.users[it.pos]))
         }
     }
 
     // подписка на поток данных RxJava
     private fun loadData() {
         //Делаем запрос пользователей с сайта ГитХаб
-        disponcable = usersRepo.getUsers()
+        disposable = usersRepo.getUsers()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
             {
@@ -61,13 +62,14 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
                 viewState.updateList()
             },
             {
-                viewState.error()
+                Log.e("DevError",it.message.toString())
+                viewState.error("Ошибка!!!")
             })
     }
 
     fun backPressed(): Boolean {
         router.exit()
-        disponcable.dispose()
+        disposable.dispose()
         return true
     }
 }

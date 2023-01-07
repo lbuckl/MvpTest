@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.vadim.mvptest.App
 import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
+import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
@@ -19,17 +20,17 @@ import moxy.ktx.moxyPresenter
 /**
  * Фрагмент для отображения подробной информации о пользователе
  */
-class UserInfoFragment(login: String): MvpAppCompatFragment(),UserInfoView,BackButtonListener {
+class UserInfoFragment(user: GithubUser): MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     companion object {
-        fun newInstance(log: String): UserInfoFragment {
-            return UserInfoFragment(log)
+        fun newInstance(user: GithubUser): UserInfoFragment {
+            return UserInfoFragment(user)
         }
     }
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
-        UserInfoPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
+        UserInfoPresenter(user, GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
     
     private var _binding: FragmentUserInfoBinding? = null
     private val binding: FragmentUserInfoBinding
@@ -58,8 +59,14 @@ class UserInfoFragment(login: String): MvpAppCompatFragment(),UserInfoView,BackB
     }
 
     override fun showInformation(url: String?, name: String, repositoryList: List<String>) {
-        if (url != null) binding.userIcon.loadImageFromUrl(url)
-        else binding.userIcon.loadImageFromUrl(R.drawable.ic_user_placeholder)
+        with(binding){
+            if (url != null) userIcon.loadImageFromUrl(url)
+            else userIcon.loadImageFromUrl(R.drawable.ic_user_placeholder)
+
+            textViewUserInfoName.text = name
+        }
+
+
 
     }
 

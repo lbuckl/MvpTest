@@ -3,6 +3,7 @@ package com.vadim.mvptest.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUsersBinding
@@ -56,8 +57,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter?.notifyDataSetChanged()
     }
 
-    override fun error() {
-        TODO("Not yet implemented")
+    override fun error(message: String) {
+        Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
     }
 
     /**

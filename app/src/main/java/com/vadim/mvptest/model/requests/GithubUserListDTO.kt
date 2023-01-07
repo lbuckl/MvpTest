@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  * Класс для получения данных из retrofit запроса
  *  @Expose данная аннотация исключает из обработки все поля, не имеющие аннотации Expose
  */
-data class GithubUserDTOItem(
+data class GithubUserListDTO(
     @Expose
     @SerializedName("avatar_url")
     val avatar_url: String,
@@ -26,6 +26,8 @@ data class GithubUserDTOItem(
     val node_id: String,
     val organizations_url: String,
     val received_events_url: String,
+    @Expose
+    @SerializedName("repos_url")
     val repos_url: String,
     val site_admin: Boolean,
     val starred_url: String,

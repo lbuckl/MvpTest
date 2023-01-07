@@ -1,11 +1,10 @@
 package com.vadim.mvptest.utils
 
 import com.vadim.mvptest.model.GithubUser
-import com.vadim.mvptest.model.requests.GithubUserDTO
-import com.vadim.mvptest.model.requests.GithubUserDTOItem
+import com.vadim.mvptest.model.requests.GithubUserListDTO
 
 object UserMapper {
-    fun mapToEntity(dto: GithubUserDTOItem): GithubUser {
+    fun mapToEntity(dto: GithubUserListDTO): GithubUser {
         return GithubUser(
             id = dto.id,
             login = dto.login,
