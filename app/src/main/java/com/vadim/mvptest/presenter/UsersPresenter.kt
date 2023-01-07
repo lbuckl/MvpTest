@@ -14,10 +14,11 @@ import moxy.MvpPresenter
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val router: Router) :
+class UsersPresenter(private val router: Router) :
     MvpPresenter<UsersView>() {
 
     private lateinit var disposable: Disposable
+    private val usersRepo = GithubRepositoryImpl
 
     /**
      * Класс для логики и наполенения view

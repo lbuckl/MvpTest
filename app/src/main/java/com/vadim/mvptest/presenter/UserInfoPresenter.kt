@@ -12,11 +12,11 @@ import moxy.MvpPresenter
  * [backClicked] - действие при нажатии кнопки "Назад"
  */
 class UserInfoPresenter(
-    private val usersRepo: GithubRepositoryImpl,
     private val router: Router):
     MvpPresenter<UserInfoView>() {
 
     private lateinit var disposable: Disposable
+    private val usersRepo = GithubRepositoryImpl
     /**
      * Команда роутеру на действие "назад"
      */

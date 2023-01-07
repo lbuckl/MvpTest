@@ -28,7 +28,7 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
-        UserInfoPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
+        UserInfoPresenter(App.instance.router) }
     
     private var _binding: FragmentUserInfoBinding? = null
     private val binding: FragmentUserInfoBinding
