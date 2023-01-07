@@ -3,7 +3,10 @@ package com.vadim.mvptest.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.RecyclerViewItemBinding
+import com.vadim.mvptest.utils.loadImageFromUrl
 
 /**
  * Адаптер для отображения данных пользователей в recyclerView
@@ -32,8 +35,9 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
 
         override var pos = -1
 
-        override fun setLogin(text: String) = with(vb) {
+        override fun setLogin(text: String, url: String) = with(vb) {
             tvLogin.text = text
+            ivUserAvatar.loadImageFromUrl(url)
         }
     }
 }

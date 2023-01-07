@@ -1,5 +1,6 @@
 package com.vadim.mvptest.presenter
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
@@ -29,7 +30,7 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            view.setLogin(user.login)
+            view.setLogin(user.login, user.avatarUrl)
         }
     }
 
@@ -45,15 +46,20 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
     }
 
     // подписка на поток данных RxJava
-    fun loadData() {
+    private fun loadData() {
 
         usersRepo.getUsers().subscribe(
             {
-
+                it.forEach{ user ->
+                    usersListPresenter.users.add(user)
+                }
             },
             {
-
+                viewState.error()
             })
+
+        Log.v("@@@","done")
+        viewState.updateList()
         /*val stringObserver = object : Observer<GithubUser> {
             //Параметр для отписки
             var disposable: Disposable? = null

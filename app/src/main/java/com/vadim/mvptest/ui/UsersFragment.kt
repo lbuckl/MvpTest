@@ -56,6 +56,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter?.notifyDataSetChanged()
     }
 
+    override fun error() {
+        TODO("Not yet implemented")
+    }
+
     /**
      * Функция нажатия кнопки "Назад"
      */

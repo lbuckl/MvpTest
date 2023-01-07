@@ -15,4 +15,6 @@ interface UsersView : MvpView {
     fun init()
     //Функция обновления данных фрагмента
     fun updateList()
+    //Функция обозначающая действия при возникновении ошибок
+    fun error()
 }
