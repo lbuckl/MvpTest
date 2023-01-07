@@ -8,8 +8,10 @@ import com.vadim.mvptest.model.repository.GithubUsersRepo
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
 import com.vadim.mvptest.ui.navigation.AndroidScreens
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 /**
@@ -48,18 +50,20 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
     // подписка на поток данных RxJava
     private fun loadData() {
 
-        usersRepo.getUsers().subscribe(
+        usersRepo.getUsers()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
             {
                 it.forEach{ user ->
                     usersListPresenter.users.add(user)
                 }
+                viewState.updateList()
             },
             {
                 viewState.error()
             })
 
-        Log.v("@@@","done")
-        viewState.updateList()
+        //viewState.updateList()
         /*val stringObserver = object : Observer<GithubUser> {
             //Параметр для отписки
             var disposable: Disposable? = null
