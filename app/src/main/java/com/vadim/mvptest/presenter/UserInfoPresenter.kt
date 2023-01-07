@@ -1,13 +1,14 @@
 package com.vadim.mvptest.presenter
 
 import com.github.terrakok.cicerone.Router
+import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import moxy.MvpPresenter
 
 /**
  * Презенрёр связывает между собой модель и вью
  * [backClicked] - действие при нажатии кнопки "Назад"
  */
-class UserInfoPresenter(private val router: Router):
+class UserInfoPresenter(private val usersRepo: GithubRepositoryImpl, private val router: Router):
     MvpPresenter<UserInfoView>() {
 
     /**

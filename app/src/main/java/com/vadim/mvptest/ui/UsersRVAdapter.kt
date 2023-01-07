@@ -35,9 +35,14 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
 
         override var pos = -1
 
-        override fun setLogin(text: String, url: String) = with(vb) {
+        override fun setLogin(text: String, url: String?) = with(vb) {
             tvLogin.text = text
-            ivUserAvatar.loadImageFromUrl(url)
+            if (url != null){
+                ivUserAvatar.loadImageFromUrl(url)
+            }
+            else{
+                ivUserAvatar.loadImageFromUrl(R.drawable.ic_user_placeholder)
+            }
         }
     }
 }

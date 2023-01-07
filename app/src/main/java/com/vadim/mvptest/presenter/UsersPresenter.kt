@@ -1,17 +1,13 @@
 package com.vadim.mvptest.presenter
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUser
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
-import com.vadim.mvptest.model.repository.GithubUsersRepo
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
 import com.vadim.mvptest.ui.navigation.AndroidScreens
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 /**
@@ -19,6 +15,8 @@ import moxy.MvpPresenter
  */
 class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val router: Router) :
     MvpPresenter<UsersView>() {
+
+    private lateinit var disponcable: Disposable
 
     /**
      * Класс для логики и наполенения view
@@ -40,8 +38,11 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+
         viewState.init()
+
         loadData()
+
         usersListPresenter.itemClickListener = {
             router.navigateTo(AndroidScreens.userInfo())
         }
@@ -49,8 +50,8 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
 
     // подписка на поток данных RxJava
     private fun loadData() {
-
-        usersRepo.getUsers()
+        //Делаем запрос пользователей с сайта ГитХаб
+        disponcable = usersRepo.getUsers()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
             {
@@ -62,34 +63,11 @@ class UsersPresenter(private val usersRepo: GithubRepositoryImpl, private val ro
             {
                 viewState.error()
             })
-
-        //viewState.updateList()
-        /*val stringObserver = object : Observer<GithubUser> {
-            //Параметр для отписки
-            var disposable: Disposable? = null
-
-            override fun onSubscribe(d: Disposable) {
-                disposable = d
-            }
-
-            override fun onNext(t: GithubUser) {
-                usersListPresenter.users.add(t)
-            }
-
-            override fun onError(e: Throwable) {
-            }
-
-            override fun onComplete() {
-                viewState.updateList()
-            }
-        }
-
-        //подписка на данные из репозитория
-        usersRepo.fromIterable().subscribe(stringObserver)*/
     }
 
     fun backPressed(): Boolean {
         router.exit()
+        disponcable.dispose()
         return true
     }
 }

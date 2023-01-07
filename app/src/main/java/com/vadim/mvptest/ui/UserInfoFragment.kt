@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
+import com.vadim.mvptest.model.repository.GithubRepositoryImpl
+import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
 import moxy.MvpAppCompatFragment
@@ -22,9 +24,8 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
-        UserInfoPresenter(App.instance.router) }
-
-
+        UserInfoPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
+    
     private var _binding: FragmentUserInfoBinding? = null
     private val binding: FragmentUserInfoBinding
         get() {

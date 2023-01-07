@@ -5,5 +5,5 @@ package com.vadim.mvptest.ui
  */
 interface UserItemView: IItemView {
     //Функция устанавливает текст в элемент recyclerView
-    fun setLogin(text: String, url: String)
+    fun setLogin(text: String, url: String?)
 }
