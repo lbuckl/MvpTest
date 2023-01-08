@@ -8,6 +8,8 @@ import io.reactivex.rxjava3.core.Single
 object GithubRepositoryImpl: GithubRepository {
     val usersApi = NetworkProvider.usersApi
 
+
+
     var lastUserLogin = ""
 
     override fun getUsers(): Single<List<GithubUser>> {
