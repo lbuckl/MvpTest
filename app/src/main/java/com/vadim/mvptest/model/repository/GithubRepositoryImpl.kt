@@ -18,4 +18,6 @@ class GithubRepositoryImpl constructor(
         return usersApi.getUser(login)
             .map(UserMapper::mapToEntity)
     }
+
+
 }

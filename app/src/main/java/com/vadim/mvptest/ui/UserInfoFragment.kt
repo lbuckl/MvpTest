@@ -75,7 +75,6 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
         with(binding){
             if (url != null) userIcon.loadImageFromUrl(url)
             else userIcon.loadImageFromUrl(R.drawable.ic_user_placeholder)
-
             textViewUserInfoName.text = name
         }
     }

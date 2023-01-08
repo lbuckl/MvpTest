@@ -8,7 +8,8 @@ object UserMapper {
         return GithubUser(
             id = dto.id,
             login = dto.login,
-            avatarUrl = dto.avatar_url
+            avatarUrl = dto.avatar_url,
+            repositoryUrl = dto.repos_url
         )
     }
 }

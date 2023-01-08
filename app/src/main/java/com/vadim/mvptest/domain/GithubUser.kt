@@ -12,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class GithubUser(
     val id: Int,
     val login: String,
-    var avatarUrl: String?
+    val avatarUrl: String?,
+    val repositoryUrl: String?
 ) : Parcelable
 
