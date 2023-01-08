@@ -57,6 +57,8 @@ class UserInfoPresenter(
 
         viewState.startLoading()
 
+        viewState.init()
+
         loadData()
 
         repositoryListPresenter.itemClickListener = {

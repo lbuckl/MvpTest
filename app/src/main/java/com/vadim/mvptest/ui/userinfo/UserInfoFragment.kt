@@ -68,7 +68,8 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
     override fun backPressed() = presenter.backPressed()
 
     override fun init() {
-        binding.userInfoRecyclerview.layoutManager = LinearLayoutManager(context)
+        Log.v("@@@","init")
+        //binding.userInfoRecyclerview.layoutManager = LinearLayoutManager(context)
         adapter = GithubRepositoryItemAdapter(presenter.repositoryListPresenter)
         binding.userInfoRecyclerview.adapter = adapter
     }
