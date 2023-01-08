@@ -25,7 +25,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(App.instance.router) }
+        UsersPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
 
     private var adapter: UsersRVAdapter? = null
     private var vb: FragmentUsersBinding? = null

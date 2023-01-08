@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.gson.GsonBuilder
 import com.vadim.mvptest.App
 import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
@@ -22,13 +23,27 @@ import moxy.ktx.moxyPresenter
  */
 class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
+
+
     companion object {
-        fun newInstance() = UserInfoFragment()
+        private const val USER_KEY = "USER_KEY"
+
+        fun newInstance(user: GithubUser): UserInfoFragment{
+            return UserInfoFragment().apply {
+                val jsonString = GsonBuilder().create().toJson(user)
+                arguments = Bundle().apply {
+                    putString(USER_KEY,jsonString)
+                }
+            }
         }
+    }
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
-        UserInfoPresenter(App.instance.router) }
+        val arg = arguments?.getString(USER_KEY)
+        val user = GsonBuilder().create().fromJson(arg, GithubUser::class.java)
+        UserInfoPresenter(user, GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router)
+    }
     
     private var _binding: FragmentUserInfoBinding? = null
     private val binding: FragmentUserInfoBinding
@@ -63,9 +78,6 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
 
             textViewUserInfoName.text = name
         }
-
-
-
     }
 
     override fun showError(message: String) {

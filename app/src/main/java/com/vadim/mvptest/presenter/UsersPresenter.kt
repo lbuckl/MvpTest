@@ -14,11 +14,13 @@ import moxy.MvpPresenter
 /**
  * Презенрёр связывает между собой модель и вью
  */
-class UsersPresenter(private val router: Router) :
+class UsersPresenter(
+    private val usersRepo: GithubRepositoryImpl,
+    private val router: Router
+    ) :
     MvpPresenter<UsersView>() {
 
     private lateinit var disposable: Disposable
-    private val usersRepo = GithubRepositoryImpl
 
     /**
      * Класс для логики и наполенения view
@@ -46,8 +48,7 @@ class UsersPresenter(private val router: Router) :
         loadData()
 
         usersListPresenter.itemClickListener = {
-            usersRepo.lastUserLogin = usersListPresenter.users[it.pos].login
-            router.navigateTo(AndroidScreens.userInfo())
+            router.navigateTo(AndroidScreens.userInfo(usersListPresenter.users[it.pos]))
         }
     }
 

@@ -8,5 +8,5 @@ import com.vadim.mvptest.model.GithubUser
  */
 interface IScreens {
     fun users(): Screen
-    fun userInfo(): Screen
+    fun userInfo(user: GithubUser): Screen
 }
