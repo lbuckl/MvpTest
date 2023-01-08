@@ -1,4 +1,4 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.ui.userinfo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +15,7 @@ import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
+import com.vadim.mvptest.ui.BackButtonListener
 import com.vadim.mvptest.utils.loadImageFromUrl
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -22,14 +23,12 @@ import moxy.ktx.moxyPresenter
 /**
  * Фрагмент для отображения подробной информации о пользователе
  */
-class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
-
-
+class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener {
 
     companion object {
         private const val USER_KEY = "USER_KEY"
 
-        fun newInstance(user: GithubUserEntity): UserInfoFragment{
+        fun newInstance(user: GithubUserEntity): UserInfoFragment {
             return UserInfoFragment().apply {
                 val jsonString = GsonBuilder().create().toJson(user)
                 arguments = Bundle().apply {

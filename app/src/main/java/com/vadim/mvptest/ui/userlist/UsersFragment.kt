@@ -1,4 +1,4 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.ui.userlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UsersPresenter
 import com.vadim.mvptest.presenter.UsersView
+import com.vadim.mvptest.ui.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 

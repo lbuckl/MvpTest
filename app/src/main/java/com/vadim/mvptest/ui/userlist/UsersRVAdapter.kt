@@ -1,11 +1,11 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.ui.userlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.vadim.mvptest.R
-import com.vadim.mvptest.databinding.RecyclerViewItemBinding
+import com.vadim.mvptest.databinding.RecyclerViewUsersItemBinding
+import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.utils.loadImageFromUrl
 
 /**
@@ -14,8 +14,8 @@ import com.vadim.mvptest.utils.loadImageFromUrl
 class UsersRVAdapter(private val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
-        val viewHolder = ViewHolder(RecyclerViewItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val viewHolder = ViewHolder(RecyclerViewUsersItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent, false)).apply {
                 itemView.setOnClickListener {
@@ -30,7 +30,7 @@ class UsersRVAdapter(private val presenter: IUserListPresenter) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         presenter.bindView(holder.apply { pos = position })
 
-    inner class ViewHolder(private val vb: RecyclerViewItemBinding) :
+    inner class ViewHolder(private val vb: RecyclerViewUsersItemBinding) :
         RecyclerView.ViewHolder(vb.root), UserItemView {
 
         override var pos = -1

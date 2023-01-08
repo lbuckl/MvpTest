@@ -1,4 +1,6 @@
-package com.vadim.mvptest.ui
+package com.vadim.mvptest.ui.userlist
+
+import com.vadim.mvptest.ui.IItemView
 
 /**
  * Интерфейс для работы с элементом списка
