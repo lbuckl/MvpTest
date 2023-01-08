@@ -1,23 +1,27 @@
 package com.vadim.mvptest.model.repository
 
-import com.vadim.mvptest.model.GithubUser
+import com.vadim.mvptest.domain.GithubRepositoryEntity
+import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.requests.IDataSource
-import com.vadim.mvptest.utils.UserMapper
+import com.vadim.mvptest.utils.Mapper
 import io.reactivex.rxjava3.core.Single
 
 class GithubRepositoryImpl constructor(
     private val usersApi: IDataSource
 ): GithubRepository {
 
-    override fun getUsers(): Single<List<GithubUser>> {
+    override fun getUsers(): Single<List<GithubUserEntity>> {
         return usersApi.getAllUsers()
-            .map { it.map(UserMapper::mapToEntity)}
+            .map { it.map(Mapper::mapUserDtoToEntity)}
     }
 
-    override fun getUserById(login: String): Single<GithubUser> {
+    override fun getUserById(login: String): Single<GithubUserEntity> {
         return usersApi.getUser(login)
-            .map(UserMapper::mapToEntity)
+            .map(Mapper::mapUserDtoToEntity)
     }
 
-
+    override fun getCustomInformation(url: String): Single<List<GithubRepositoryEntity>> {
+        return usersApi.getCustomInformation(url)
+            .map { it.map(Mapper::mapRepositoryDtoToEntity) }
+    }
 }

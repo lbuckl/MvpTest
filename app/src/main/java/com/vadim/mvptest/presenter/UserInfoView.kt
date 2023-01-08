@@ -1,5 +1,6 @@
 package com.vadim.mvptest.presenter
 
+import com.vadim.mvptest.domain.GithubRepositoryEntity
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
@@ -16,7 +17,9 @@ interface UserInfoView : MvpView {
     //Действие при окончании/прерывании загрузки
     fun endLoading()
     //Показать информацию о пользователе
-    fun showInformation(url: String?, name: String, repositoryList: List<String>)
+    fun showBaseInformation(url: String?, name: String)
+    //Показать информацию о пользователе
+    fun showRepositoryInformation(repositoryList: List<GithubRepositoryEntity>)
     //Действия при возникновении ошибоке
     fun showError(message: String)
 }

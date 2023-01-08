@@ -1,11 +1,14 @@
 package com.vadim.mvptest.model.repository
 
-import com.vadim.mvptest.model.GithubUser
+import com.vadim.mvptest.domain.GithubRepositoryEntity
+import com.vadim.mvptest.model.GithubUserEntity
 import io.reactivex.rxjava3.core.Single
 
 interface GithubRepository {
 
-    fun getUsers(): Single<List<GithubUser>>
+    fun getUsers(): Single<List<GithubUserEntity>>
 
-    fun getUserById(login: String): Single<GithubUser>
+    fun getUserById(login: String): Single<GithubUserEntity>
+
+    fun getCustomInformation(url: String): Single<List<GithubRepositoryEntity>>
 }

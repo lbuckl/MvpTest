@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.requests
+package com.vadim.mvptest.model.requests.dto.user
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
  * Класс для получения данных из retrofit запроса
  *  @Expose данная аннотация исключает из обработки все поля, не имеющие аннотации Expose
  */
-data class GithubUserListDTO(
+data class GithubUserDTO(
     @Expose
     @SerializedName("avatar_url")
     val avatar_url: String,

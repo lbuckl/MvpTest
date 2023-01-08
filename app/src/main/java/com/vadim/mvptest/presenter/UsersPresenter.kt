@@ -2,7 +2,7 @@ package com.vadim.mvptest.presenter
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.vadim.mvptest.model.GithubUser
+import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.UserItemView
@@ -26,7 +26,7 @@ class UsersPresenter(
      * Класс для логики и наполенения view
      */
     class UsersListPresenter : IUserListPresenter {
-        val users = mutableListOf<GithubUser>()
+        val users = mutableListOf<GithubUserEntity>()
 
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 

@@ -9,7 +9,8 @@ import com.google.gson.GsonBuilder
 import com.vadim.mvptest.App
 import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
-import com.vadim.mvptest.model.GithubUser
+import com.vadim.mvptest.domain.GithubRepositoryEntity
+import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
@@ -28,7 +29,7 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
     companion object {
         private const val USER_KEY = "USER_KEY"
 
-        fun newInstance(user: GithubUser): UserInfoFragment{
+        fun newInstance(user: GithubUserEntity): UserInfoFragment{
             return UserInfoFragment().apply {
                 val jsonString = GsonBuilder().create().toJson(user)
                 arguments = Bundle().apply {
@@ -41,7 +42,7 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
         val arg = arguments?.getString(USER_KEY)
-        val user = GsonBuilder().create().fromJson(arg, GithubUser::class.java)
+        val user = GsonBuilder().create().fromJson(arg, GithubUserEntity::class.java)
         UserInfoPresenter(user, GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router)
     }
     
@@ -71,7 +72,12 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView,BackButtonListener {
         binding.progressBar.visibility = View.GONE
     }
 
-    override fun showInformation(url: String?, name: String, repositoryList: List<String>) {
+
+    override fun showRepositoryInformation(repositoryList: List<GithubRepositoryEntity>) {
+        Toast.makeText(requireContext(),"Репозиторий загружен",Toast.LENGTH_LONG).show()
+    }
+
+    override fun showBaseInformation(url: String?, name: String) {
         with(binding){
             if (url != null) userIcon.loadImageFromUrl(url)
             else userIcon.loadImageFromUrl(R.drawable.ic_user_placeholder)
