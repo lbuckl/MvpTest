@@ -12,6 +12,7 @@ import moxy.viewstate.strategy.StateStrategyType
  */
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface UserInfoView : MvpView {
+    fun init()
     //Действие при начале загрузки
     fun startLoading()
     //Действие при окончании/прерывании загрузки
@@ -19,7 +20,7 @@ interface UserInfoView : MvpView {
     //Показать информацию о пользователе
     fun showBaseInformation(url: String?, name: String)
     //Показать информацию о пользователе
-    fun showRepositoryInformation(repositoryList: List<GithubRepositoryEntity>)
+    fun showRepositoryInformation()
     //Действия при возникновении ошибоке
     fun showError(message: String)
 }

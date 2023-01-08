@@ -1,10 +1,12 @@
 package com.vadim.mvptest.ui.userinfo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import com.vadim.mvptest.App
 import com.vadim.mvptest.R
@@ -16,6 +18,7 @@ import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
 import com.vadim.mvptest.ui.BackButtonListener
+import com.vadim.mvptest.ui.userlist.UsersRVAdapter
 import com.vadim.mvptest.utils.loadImageFromUrl
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -37,6 +40,8 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
             }
         }
     }
+
+    private var adapter: GithubRepositoryItemAdapter? = null
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UserInfoPresenter by moxyPresenter {
@@ -62,6 +67,12 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
 
     override fun backPressed() = presenter.backPressed()
 
+    override fun init() {
+        binding.userInfoRecyclerview.layoutManager = LinearLayoutManager(context)
+        adapter = GithubRepositoryItemAdapter(presenter.repositoryListPresenter)
+        binding.userInfoRecyclerview.adapter = adapter
+    }
+
 
     override fun startLoading() {
         binding.progressBar.visibility = View.VISIBLE
@@ -71,8 +82,9 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
         binding.progressBar.visibility = View.GONE
     }
 
+    override fun showRepositoryInformation() {
+        adapter?.notifyDataSetChanged()
 
-    override fun showRepositoryInformation(repositoryList: List<GithubRepositoryEntity>) {
         Toast.makeText(requireContext(),"Репозиторий загружен",Toast.LENGTH_LONG).show()
     }
 
