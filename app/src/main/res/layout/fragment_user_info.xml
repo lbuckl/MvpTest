@@ -9,6 +9,7 @@
         android:id="@+id/userInfo_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -27,14 +28,14 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/user_icon"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="@dimen/user_info_imageview_height"
                     android:src="@drawable/img_user_header"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/userInfo_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="@dimen/layout_hide_value"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -42,7 +43,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userInfo_recyclerview"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/recyclerview_margin_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -69,17 +70,19 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/user_info_margin_top"
         app:layout_anchor="@id/userInfo_appbar"
         app:layout_anchorGravity="bottom">
 
         <TextView
             android:id="@+id/textView_userInfo_name"
+            style="@style/UserNameStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/black"
             android:gravity="center"
-            android:text="Имя пользователя"/>
+            android:text="@string/user_name"/>
 
         <TextView
             android:id="@+id/textView_userInfo_rep"
@@ -87,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Репозитории"/>
+            android:text="@string/repositories"/>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

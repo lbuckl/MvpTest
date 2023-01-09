@@ -3,4 +3,6 @@
     <string name="counter_one">One</string>
     <string name="counter_two">Two</string>
     <string name="counter_three">Three</string>
+    <string name="repositories">Репозитории:</string>
+    <string name="user_name">Имя пользователя</string>
 </resources>

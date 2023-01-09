@@ -23,4 +23,6 @@ interface UserInfoView : MvpView {
     fun showRepositoryInformation()
     //Действия при возникновении ошибоке
     fun showError(message: String)
+    //Отображение детальной информации
+    fun showDetails(repInfo: GithubRepositoryEntity)
 }

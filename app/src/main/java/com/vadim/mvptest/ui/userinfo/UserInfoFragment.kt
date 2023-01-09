@@ -1,12 +1,11 @@
 package com.vadim.mvptest.ui.userinfo
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
 import com.vadim.mvptest.App
 import com.vadim.mvptest.R
@@ -18,7 +17,6 @@ import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
 import com.vadim.mvptest.ui.BackButtonListener
-import com.vadim.mvptest.ui.userlist.UsersRVAdapter
 import com.vadim.mvptest.utils.loadImageFromUrl
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -31,6 +29,7 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
     companion object {
         private const val USER_KEY = "USER_KEY"
 
+        //При создании фрагмента сохраняем объект пользователя в json формате
         fun newInstance(user: GithubUserEntity): UserInfoFragment {
             return UserInfoFragment().apply {
                 val jsonString = GsonBuilder().create().toJson(user)
@@ -43,7 +42,7 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
 
     private var adapter: GithubRepositoryItemAdapter? = null
 
-    //Создаём презентёр с cicerone навигацией
+    //Создаём презентёр с cicerone навигацией и восстанавливаем объект пользователя
     private val presenter: UserInfoPresenter by moxyPresenter {
         val arg = arguments?.getString(USER_KEY)
         val user = GsonBuilder().create().fromJson(arg, GithubUserEntity::class.java)
@@ -65,39 +64,52 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
         return binding.root
     }
 
+    //Действие при нажатии кнопки "Назад"
     override fun backPressed() = presenter.backPressed()
 
+    //Инициализация фрагмента
     override fun init() {
-        Log.v("@@@","init")
-        //binding.userInfoRecyclerview.layoutManager = LinearLayoutManager(context)
         adapter = GithubRepositoryItemAdapter(presenter.repositoryListPresenter)
         binding.userInfoRecyclerview.adapter = adapter
     }
 
-
+    //Начало загрузки
     override fun startLoading() {
         binding.progressBar.visibility = View.VISIBLE
     }
 
+    //Окончание загрузки
     override fun endLoading() {
         binding.progressBar.visibility = View.GONE
     }
 
+    //Обновление списка репозиториев
     override fun showRepositoryInformation() {
         adapter?.notifyDataSetChanged()
-
-        Toast.makeText(requireContext(),"Репозиторий загружен",Toast.LENGTH_LONG).show()
     }
 
+    //Показать основную информаицю о пользователе
     override fun showBaseInformation(url: String?, name: String) {
         with(binding){
             if (url != null) userIcon.loadImageFromUrl(url)
             else userIcon.loadImageFromUrl(R.drawable.ic_user_placeholder)
+
             textViewUserInfoName.text = name
         }
     }
 
+    //Отображение ошибки
     override fun showError(message: String) {
         Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
+    }
+
+    //Показать детальную информацию о репозитории
+    override fun showDetails(repInfo: GithubRepositoryEntity) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(repInfo.name)
+            .setMessage("Forks: ${repInfo.fork_count} Stars: ${repInfo.stars_count}")
+            .setNegativeButton("Закрыть"
+            ) { dialog, which -> dialog.dismiss() }
+            .show()
     }
 }

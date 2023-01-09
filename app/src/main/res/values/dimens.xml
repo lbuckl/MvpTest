@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_info_margin_top">16dp</dimen>
+    <dimen name="recyclerview_margin_top">20dp</dimen>
+    <dimen name="layout_hide_value">1dp</dimen>
+    <dimen name="user_info_imageview_height">220dp</dimen>
+    <dimen name="repository_item_margin_start">16dp</dimen>
+    <dimen name="user_item_height">52dp</dimen>
+</resources>

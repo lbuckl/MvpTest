@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vadim.mvptest.databinding.RecyclerViewRepositoriesItemBinding
-import com.vadim.mvptest.databinding.RecyclerViewUsersItemBinding
 import com.vadim.mvptest.ui.IGithubRepositoryListPresenter
 
 /**

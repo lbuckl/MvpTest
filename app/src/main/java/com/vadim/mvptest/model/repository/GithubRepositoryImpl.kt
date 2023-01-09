@@ -21,7 +21,7 @@ class GithubRepositoryImpl constructor(
     }
 
     override fun getCustomInformation(url: String): Single<List<GithubRepositoryEntity>> {
-        return usersApi.getCustomInformation(url)
+        return usersApi.getGithubRepositoryInfo(url)
             .map { it.map(Mapper::mapRepositoryDtoToEntity) }
     }
 }

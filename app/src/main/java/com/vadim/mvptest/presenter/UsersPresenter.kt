@@ -5,8 +5,8 @@ import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.repository.GithubRepositoryImpl
 import com.vadim.mvptest.ui.IUserListPresenter
-import com.vadim.mvptest.ui.userlist.UserItemView
 import com.vadim.mvptest.ui.navigation.AndroidScreens
+import com.vadim.mvptest.ui.userlist.UserItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
