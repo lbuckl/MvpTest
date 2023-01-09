@@ -9,6 +9,7 @@ import com.vadim.mvptest.ui.navigation.AndroidScreens
 import com.vadim.mvptest.ui.userlist.UserItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 /**
@@ -57,12 +58,14 @@ class UsersPresenter(
         //Делаем запрос пользователей с сайта ГитХаб
         disposable = usersRepo.getUsers()
             .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
             .subscribe(
             {
                 it.forEach{ user ->
                     usersListPresenter.users.add(user)
+                    viewState.updateList()
+
                 }
-                viewState.updateList()
             },
             {
                 Log.e("DevError",it.message.toString())

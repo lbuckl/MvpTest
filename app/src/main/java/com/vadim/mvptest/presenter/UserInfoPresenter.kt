@@ -9,6 +9,7 @@ import com.vadim.mvptest.ui.IGithubRepositoryListPresenter
 import com.vadim.mvptest.ui.userinfo.GithubRepositoryItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 /**
@@ -70,6 +71,7 @@ class UserInfoPresenter(
         if (user.repositoryUrl != null){
             disposable = usersRepo.getCustomInformation(user.repositoryUrl)
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(
                     {
                         it.map { rep ->
