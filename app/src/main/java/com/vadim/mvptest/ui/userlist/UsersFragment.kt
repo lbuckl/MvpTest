@@ -7,7 +7,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUsersBinding
-import com.vadim.mvptest.model.repository.GithubRepositoryImpl
+import com.vadim.mvptest.model.AndroidNetworkStatus
+import com.vadim.mvptest.model.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UsersPresenter
 import com.vadim.mvptest.presenter.UsersView
@@ -25,7 +26,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     //Создаём презентёр с cicerone навигацией
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router) }
+        UsersPresenter(
+            GithubRepositoryImpl(NetworkProvider.usersApi, AndroidNetworkStatus(requireContext())),
+            App.instance.router
+        ) }
 
     private var adapter: UsersRVAdapter? = null
     private var vb: FragmentUsersBinding? = null

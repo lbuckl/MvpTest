@@ -11,8 +11,9 @@ import com.vadim.mvptest.App
 import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
 import com.vadim.mvptest.domain.GithubRepositoryEntity
+import com.vadim.mvptest.model.AndroidNetworkStatus
 import com.vadim.mvptest.model.GithubUserEntity
-import com.vadim.mvptest.model.repository.GithubRepositoryImpl
+import com.vadim.mvptest.model.GithubRepositoryImpl
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
@@ -46,7 +47,10 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
     private val presenter: UserInfoPresenter by moxyPresenter {
         val arg = arguments?.getString(USER_KEY)
         val user = GsonBuilder().create().fromJson(arg, GithubUserEntity::class.java)
-        UserInfoPresenter(user, GithubRepositoryImpl(NetworkProvider.usersApi), App.instance.router)
+        UserInfoPresenter(
+            user,
+            GithubRepositoryImpl(NetworkProvider.usersApi, AndroidNetworkStatus(requireContext())),
+            App.instance.router)
     }
     
     private var _binding: FragmentUserInfoBinding? = null

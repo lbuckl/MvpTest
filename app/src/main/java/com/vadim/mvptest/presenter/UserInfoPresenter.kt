@@ -4,7 +4,7 @@ import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.GithubUserEntity
-import com.vadim.mvptest.model.repository.GithubRepositoryImpl
+import com.vadim.mvptest.model.GithubRepositoryImpl
 import com.vadim.mvptest.ui.IGithubRepositoryListPresenter
 import com.vadim.mvptest.ui.userinfo.GithubRepositoryItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

@@ -1,14 +1,16 @@
-package com.vadim.mvptest.model.repository
+package com.vadim.mvptest.model
 
 import com.vadim.mvptest.domain.GithubRepositoryEntity
-import com.vadim.mvptest.model.GithubUserEntity
+import com.vadim.mvptest.model.database.GithubRepositoryDB
+import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
 import com.vadim.mvptest.utils.GithubRepositoryMapper
 import com.vadim.mvptest.utils.UserMapper
 import io.reactivex.rxjava3.core.Single
 
 class GithubRepositoryImpl constructor(
-    private val usersApi: IDataSource
+    private val usersApi: IDataSource,
+    private val networkStatus: INetworkStatus
 ): GithubRepositoryRest, GithubRepositoryDB {
 
     override fun getUsers(): Single<List<GithubUserEntity>> {

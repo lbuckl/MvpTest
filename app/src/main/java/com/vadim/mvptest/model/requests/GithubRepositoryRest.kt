@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.repository
+package com.vadim.mvptest.model.requests
 
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.GithubUserEntity

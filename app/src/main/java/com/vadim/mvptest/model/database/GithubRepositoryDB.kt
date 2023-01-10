@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.repository
+package com.vadim.mvptest.model.database
 
 interface GithubRepositoryDB {
     fun saveUserToDB(){}
