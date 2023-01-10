@@ -63,9 +63,8 @@ class UsersPresenter(
             {
                 it.forEach{ user ->
                     usersListPresenter.users.add(user)
-                    viewState.updateList()
-
                 }
+                viewState.updateList()
             },
             {
                 Log.e("DevError",it.message.toString())

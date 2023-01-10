@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "users")
 data class UserDBObject(
     @PrimaryKey
-    val id: Long,
-    val login: String
+    val id: Int,
+    val login: String,
+    val avatarUrl: String?,
+    val repositoryUrl: String?
 )

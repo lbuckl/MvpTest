@@ -3,25 +3,34 @@ package com.vadim.mvptest.model.repository
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.requests.IDataSource
-import com.vadim.mvptest.utils.Mapper
+import com.vadim.mvptest.utils.GithubRepositoryMapper
+import com.vadim.mvptest.utils.UserMapper
 import io.reactivex.rxjava3.core.Single
 
 class GithubRepositoryImpl constructor(
     private val usersApi: IDataSource
-): GithubRepository {
+): GithubRepositoryRest, GithubRepositoryDB {
 
     override fun getUsers(): Single<List<GithubUserEntity>> {
         return usersApi.getAllUsers()
-            .map { it.map(Mapper::mapUserDtoToEntity)}
+            .map { it.map(UserMapper::mapUserDtoToEntity)}
     }
 
     override fun getUserById(login: String): Single<GithubUserEntity> {
         return usersApi.getUser(login)
-            .map(Mapper::mapUserDtoToEntity)
+            .map(UserMapper::mapUserDtoToEntity)
     }
 
     override fun getCustomInformation(url: String): Single<List<GithubRepositoryEntity>> {
         return usersApi.getGithubRepositoryInfo(url)
-            .map { it.map(Mapper::mapRepositoryDtoToEntity) }
+            .map { it.map(GithubRepositoryMapper::mapRepositoryDtoToEntity) }
+    }
+
+    override fun getUserFromDB(id: Int) {
+        super.getUserFromDB(id)
+    }
+
+    override fun saveUserToDB() {
+        super.saveUserToDB()
     }
 }
