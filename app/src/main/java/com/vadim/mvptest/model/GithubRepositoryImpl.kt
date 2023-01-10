@@ -14,8 +14,17 @@ class GithubRepositoryImpl constructor(
 ): GithubRepositoryRest, GithubRepositoryDB {
 
     override fun getUsers(): Single<List<GithubUserEntity>> {
-        return usersApi.getAllUsers()
-            .map { it.map(UserMapper::mapUserDtoToEntity)}
+
+        return networkStatus.isOnlineSingle().flatMap { isOnline ->
+            if (isOnline){
+                usersApi.getAllUsers()
+                    .map { it.map(UserMapper::mapUserDtoToEntity)}
+            }
+            else {
+                usersApi.getAllUsers()
+                    .map { it.map(UserMapper::mapUserDtoToEntity)}
+            }
+        }
     }
 
     override fun getUserById(login: String): Single<GithubUserEntity> {
@@ -34,5 +43,6 @@ class GithubRepositoryImpl constructor(
 
     override fun saveUserToDB() {
         super.saveUserToDB()
+
     }
 }

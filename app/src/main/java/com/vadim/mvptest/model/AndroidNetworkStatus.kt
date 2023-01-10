@@ -27,6 +27,7 @@ class AndroidNetworkStatus(context: Context) : INetworkStatus {
             }
         })
     }
+
     override fun isOnline() = statusSubject
     override fun isOnlineSingle() = statusSubject.first(false)
 }
