@@ -14,6 +14,7 @@ import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.AndroidNetworkStatus
 import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.GithubRepositoryImpl
+import com.vadim.mvptest.model.database.GithubAppDB
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
@@ -49,7 +50,10 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
         val user = GsonBuilder().create().fromJson(arg, GithubUserEntity::class.java)
         UserInfoPresenter(
             user,
-            GithubRepositoryImpl(NetworkProvider.usersApi, AndroidNetworkStatus(requireContext())),
+            GithubRepositoryImpl(
+                NetworkProvider.usersApi,
+                GithubAppDB.getInstance(requireContext()),
+                AndroidNetworkStatus(requireContext())),
             App.instance.router)
     }
     
