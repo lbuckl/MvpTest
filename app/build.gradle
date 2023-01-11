@@ -65,7 +65,6 @@ dependencies {
     //RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
-    implementation 'androidx.room:room-rxjava3:2.5.0-rc01'
 
     //okHttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
@@ -81,5 +80,5 @@ dependencies {
     //Room
     implementation 'androidx.room:room-runtime:2.4.3'
     kapt 'androidx.room:room-compiler:2.4.3'
-
+    implementation 'androidx.room:room-rxjava3:2.4.3'
 }

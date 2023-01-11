@@ -14,8 +14,6 @@ abstract class GithubAppDB: RoomDatabase() {
     abstract val userDao: UserDAO
 
     companion object{
-        private const val DB_NAME ="database.db"
-
         private var instance: GithubAppDB? = null
 
         fun getInstance(context: Context): GithubAppDB {

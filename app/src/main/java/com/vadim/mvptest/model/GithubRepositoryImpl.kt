@@ -1,10 +1,8 @@
 package com.vadim.mvptest.model
 
-import androidx.room.RoomDatabase
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.database.GithubAppDB
 import com.vadim.mvptest.model.database.GithubRepositoryDB
-import com.vadim.mvptest.model.database.UserDBObject
 import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
