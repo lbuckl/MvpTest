@@ -17,4 +17,6 @@ interface UsersView : MvpView {
     fun updateList()
     //Действия при возникновении ошибок
     fun error(message:String)
+    //Функция для информационных оповещений
+    fun showInfo(message:String)
 }

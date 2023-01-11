@@ -10,6 +10,7 @@ import com.vadim.mvptest.model.requests.IDataSource
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 import com.vadim.mvptest.utils.GithubRepositoryMapper
 import com.vadim.mvptest.utils.UserMapper
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -22,8 +23,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class GithubRepositoryImpl constructor(
     private val usersApi: IDataSource,
     private val dataBase: GithubAppDB,
-    private val networkStatus: INetworkStatus
+    val networkStatus: INetworkStatus
 ): GithubRepositoryRest, GithubRepositoryDB {
+
 
     //region работа со списком пользователей________________________________
     /**
@@ -56,11 +58,15 @@ class GithubRepositoryImpl constructor(
 
     //Фукнция получения данных из БД Room
     private fun getDataFromDB(): Single<List<GithubUserEntity>>{
-        Log.v("@@@","Start Restore")
         return dataBase.userDao.queryAllUsers().map {
-            Log.v("@@@","Size ${it.size}")
             it.map(UserMapper::mapUserDbToEntity)
-        }.subscribeOn(Schedulers.io())
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun saveUserToDB(userData: List<GithubUserDTO>){
+            dataBase.userDao.insertAll(
+                userData.map(UserMapper::mapUserDtoToDb)
+            )
     }
     //endregion_______________________________________________________________
 
@@ -78,18 +84,5 @@ class GithubRepositoryImpl constructor(
 
     override fun getUserFromDB(id: Int) {
 
-    }
-
-    override fun saveUserToDB(userData: List<GithubUserDTO>){
-        dataBase.userDao.insert(
-            UserMapper.mapUserDtoToDb(userData[0])
-        ).doOnComplete {
-            Log.v("@@@","Finish Saving1")
-        }
-
-        Log.v("@@@","Start Saving")
-        dataBase.userDao.insertAll(
-            userData.map(UserMapper::mapUserDtoToDb)
-        )
     }
 }

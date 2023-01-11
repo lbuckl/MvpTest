@@ -8,6 +8,7 @@ import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.navigation.AndroidScreens
 import com.vadim.mvptest.ui.userlist.UserItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
@@ -51,6 +52,14 @@ class UsersPresenter(
         usersListPresenter.itemClickListener = {
             router.navigateTo(AndroidScreens.userInfo(usersListPresenter.users[it.pos]))
         }
+
+        usersRepo.networkStatus.isOnline()
+            .observeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { isOnline ->
+                if (isOnline) viewState.showInfo("Связь восстановлена")
+                else viewState.error("Потеряна связь")
+            }
     }
 
     // подписка на поток данных RxJava

@@ -31,7 +31,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             GithubRepositoryImpl(
                 NetworkProvider.usersApi,
                 App.getUserDB(requireContext()),
-                //GithubAppDB.getInstance(requireContext()),
                 AndroidNetworkStatus(requireContext())
             ),
             App.instance.router
@@ -73,6 +72,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun error(message: String) {
         Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun showInfo(message: String) {
+        Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
     }
 
     /**
