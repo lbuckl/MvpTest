@@ -3,15 +3,13 @@ package com.vadim.mvptest.model
 import android.util.Log
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.database.GithubAppDB
-import com.vadim.mvptest.model.database.GithubRepositoryDB
-import com.vadim.mvptest.model.database.UserDBObject
+import com.vadim.mvptest.model.database.GithubUserDBImpl
 import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 import com.vadim.mvptest.utils.GithubRepositoryMapper
 import com.vadim.mvptest.utils.UserMapper
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -24,7 +22,7 @@ class GithubRepositoryImpl constructor(
     private val usersApi: IDataSource,
     private val dataBase: GithubAppDB,
     val networkStatus: INetworkStatus
-): GithubRepositoryRest, GithubRepositoryDB {
+): GithubRepositoryRest, GithubUserDBImpl {
 
 
     //region работа со списком пользователей________________________________

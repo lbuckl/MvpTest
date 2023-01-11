@@ -4,12 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.vadim.mvptest.model.database.githubrepo.GithubRepoObject
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface UserDAO {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: UserDBObject)
 
@@ -18,6 +18,4 @@ interface UserDAO {
 
     @Query("SELECT * FROM users")
     fun queryAllUsers(): Single<List<UserDBObject>>
-
-
 }

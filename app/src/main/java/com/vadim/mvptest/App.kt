@@ -6,22 +6,39 @@ import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.model.database.GithubAppDB
+import com.vadim.mvptest.model.database.githubrepo.GithubRepoDB
 
 class App : Application() {
     companion object {
         lateinit var instance: App
 
         private var userDB: GithubAppDB? = null
+        private var userRepositoryDB: GithubRepoDB? = null
 
-        fun getUserDB(context: Context): GithubAppDB{
+        //Создаём БД для GithubUsers
+        fun getUserDB(context: Context): GithubAppDB {
             return if (userDB == null){
                 Room.databaseBuilder(
                     context,
                     GithubAppDB::class.java,
-                    GITHUB_DB_NAME
+                    GITHUB_USERS_DB_NAME
                 ).build()
             } else{
                 userDB ?: throw RuntimeException(
+                    "Database has not been created. Please call create(context)")
+            }
+        }
+
+        //Создаём БД для списков репозиториев пользователей Github
+        fun getGithubRepoDB(context: Context): GithubRepoDB {
+            return if (userRepositoryDB == null){
+                Room.databaseBuilder(
+                    context,
+                    GithubRepoDB::class.java,
+                    GITHUB_REPO_DB_NAME
+                ).build()
+            } else{
+                userRepositoryDB ?: throw RuntimeException(
                     "Database has not been created. Please call create(context)")
             }
         }
