@@ -11,12 +11,22 @@ import com.vadim.mvptest.GITHUB_DB_NAME
     version = 1
 )
 abstract class GithubAppDB: RoomDatabase() {
+    abstract val userDao: UserDAO
 
-    fun create(context: Context): GithubAppDB{
-        return Room.databaseBuilder(
-            context,
-            GithubAppDB::class.java,
-            GITHUB_DB_NAME
-        ).build()
+    companion object{
+        private const val DB_NAME ="database.db"
+        private var instance: GithubAppDB? = null
+        fun getInstance(context: Context): GithubAppDB {
+            return if (instance == null){
+                Room.databaseBuilder(
+                    context,
+                    GithubAppDB::class.java,
+                    GITHUB_DB_NAME
+                ).build()
+            } else instance!!
+        }
     }
+            /*?: throw RuntimeException(
+            "Database has not been created. Please call create(context)"
+        )*/
 }

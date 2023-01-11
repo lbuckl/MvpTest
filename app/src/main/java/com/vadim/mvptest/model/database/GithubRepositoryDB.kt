@@ -1,7 +1,9 @@
 package com.vadim.mvptest.model.database
 
-interface GithubRepositoryDB {
-    fun saveUserToDB(){}
+import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 
-    fun getUserFromDB(id: Int){}
+interface GithubRepositoryDB {
+    fun saveUserToDB(userData: List<GithubUserDTO>)
+
+    fun getUserFromDB(id: Int)
 }

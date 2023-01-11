@@ -9,6 +9,7 @@ import com.vadim.mvptest.App
 import com.vadim.mvptest.databinding.FragmentUsersBinding
 import com.vadim.mvptest.model.AndroidNetworkStatus
 import com.vadim.mvptest.model.GithubRepositoryImpl
+import com.vadim.mvptest.model.database.GithubAppDB
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UsersPresenter
 import com.vadim.mvptest.presenter.UsersView
@@ -27,7 +28,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     //Создаём презентёр с cicerone навигацией
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GithubRepositoryImpl(NetworkProvider.usersApi, AndroidNetworkStatus(requireContext())),
+            GithubRepositoryImpl(
+                NetworkProvider.usersApi,
+                GithubAppDB.getInstance(requireContext()),
+                AndroidNetworkStatus(requireContext())
+            ),
             App.instance.router
         ) }
 

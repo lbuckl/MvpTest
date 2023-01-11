@@ -69,7 +69,7 @@ class UserInfoPresenter(
         viewState.showBaseInformation(user.avatarUrl,user.login)
 
         if (user.repositoryUrl != null){
-            disposable = usersRepo.getCustomInformation(user.repositoryUrl)
+            disposable = usersRepo.getRepositoryInformation(user.repositoryUrl)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(

@@ -19,12 +19,21 @@ object UserMapper {
     }
 
     //Преобразовывает формат данных из запроса в формат для БД
-    fun mapUserDtoToDbEntity(dto: GithubUserDTO): UserDBObject {
+    fun mapUserDtoToDb(dto: GithubUserDTO): UserDBObject {
         return UserDBObject(
             id = dto.id,
             login = dto.login,
             avatarUrl = dto.avatar_url,
             repositoryUrl = dto.repos_url
+        )
+    }
+
+    fun mapUserDbToEntity(userDBObject: UserDBObject): GithubUserEntity{
+        return GithubUserEntity(
+            id = userDBObject.id,
+            login = userDBObject.login,
+            avatarUrl = userDBObject.avatarUrl,
+            repositoryUrl = userDBObject.repositoryUrl
         )
     }
 }
