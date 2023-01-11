@@ -1,9 +1,7 @@
 package com.vadim.mvptest.utils
 
-import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.GithubUserEntity
-import com.vadim.mvptest.model.database.UserDBObject
-import com.vadim.mvptest.model.requests.dto.repository.UserRepositoryDTOItem
+import com.vadim.mvptest.model.database.users.UserDBObject
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 
 object UserMapper {

@@ -2,7 +2,6 @@ package com.vadim.mvptest.model.database.githubrepo
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.vadim.mvptest.model.database.UserDAO
 
 @Database(
     entities = [GithubRepoObject::class],

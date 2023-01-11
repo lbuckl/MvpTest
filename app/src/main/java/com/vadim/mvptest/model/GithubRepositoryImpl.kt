@@ -2,8 +2,8 @@ package com.vadim.mvptest.model
 
 import android.util.Log
 import com.vadim.mvptest.domain.GithubRepositoryEntity
-import com.vadim.mvptest.model.database.GithubAppDB
-import com.vadim.mvptest.model.database.GithubUserDBImpl
+import com.vadim.mvptest.model.database.users.GithubAppDB
+import com.vadim.mvptest.model.database.users.GithubUserDBImpl
 import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO

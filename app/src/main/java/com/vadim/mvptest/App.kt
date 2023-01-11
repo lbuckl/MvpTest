@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
-import com.vadim.mvptest.model.database.GithubAppDB
+import com.vadim.mvptest.model.database.users.GithubAppDB
 import com.vadim.mvptest.model.database.githubrepo.GithubRepoDB
 
 class App : Application() {

@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.database
+package com.vadim.mvptest.model.database.users
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.database
+package com.vadim.mvptest.model.database.users
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

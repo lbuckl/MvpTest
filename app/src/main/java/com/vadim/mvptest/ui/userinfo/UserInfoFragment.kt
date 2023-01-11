@@ -14,7 +14,6 @@ import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.AndroidNetworkStatus
 import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.GithubRepositoryImpl
-import com.vadim.mvptest.model.database.GithubAppDB
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView

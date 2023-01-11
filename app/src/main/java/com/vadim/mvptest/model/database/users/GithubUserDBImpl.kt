@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.database
+package com.vadim.mvptest.model.database.users
 
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 
