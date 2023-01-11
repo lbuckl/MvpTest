@@ -1,5 +1,6 @@
 package com.vadim.mvptest.model
 
+import android.util.Log
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.database.GithubAppDB
 import com.vadim.mvptest.model.database.GithubRepositoryDB
@@ -31,9 +32,11 @@ class GithubRepositoryImpl constructor(
     override fun getUsers(): Single<List<GithubUserEntity>> {
         return networkStatus.isOnlineSingle().flatMap { isOnline ->
             if (isOnline){
+                Log.v("@@@","Online")
                 getDataFromApiAndSaveToDB()
             }
             else {
+                Log.v("@@@","Offline")
                 getDataFromDB()
             }
         }
@@ -73,6 +76,7 @@ class GithubRepositoryImpl constructor(
     }
 
     override fun saveUserToDB(userData: List<GithubUserDTO>) {
+        Log.v("@@@","Start Saving")
         dataBase.userDao.insertAll(
             userData.map(UserMapper::mapUserDtoToDb)
         )

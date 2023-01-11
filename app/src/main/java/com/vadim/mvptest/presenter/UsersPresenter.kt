@@ -61,10 +61,15 @@ class UsersPresenter(
             .subscribeOn(Schedulers.io())
             .subscribe(
             {
-                it.forEach{ user ->
-                    usersListPresenter.users.add(user)
+                if (it.size == 0){
+                    viewState.error("Проверьте интернет соединение")
                 }
-                viewState.updateList()
+                else{
+                    it.forEach{ user ->
+                        usersListPresenter.users.add(user)
+                    }
+                    viewState.updateList()
+                }
             },
             {
                 Log.e("DevError",it.message.toString())
