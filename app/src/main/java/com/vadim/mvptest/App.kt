@@ -1,12 +1,33 @@
 package com.vadim.mvptest
 
 import android.app.Application
+import android.content.Context
+import android.util.Log
+import androidx.room.Room
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import com.vadim.mvptest.model.database.GithubAppDB
 
 class App : Application() {
     companion object {
         lateinit var instance: App
+
+        private var userDB: GithubAppDB? = null
+
+        fun getUserDB(context: Context): GithubAppDB{
+            return if (userDB == null){
+                Log.v("@@@","Create DB")
+                Room.databaseBuilder(
+                    context,
+                    GithubAppDB::class.java,
+                    GITHUB_DB_NAME
+                ).build()
+            } else{
+                Log.v("@@@","DB already created")
+                userDB ?: throw RuntimeException(
+                    "Database has not been created. Please call create(context)")
+            }
+        }
     }
 
     //Временно до даггера положим это тут

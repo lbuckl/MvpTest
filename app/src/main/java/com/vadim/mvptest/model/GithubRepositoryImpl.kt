@@ -4,12 +4,15 @@ import android.util.Log
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.database.GithubAppDB
 import com.vadim.mvptest.model.database.GithubRepositoryDB
+import com.vadim.mvptest.model.database.UserDBObject
 import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 import com.vadim.mvptest.utils.GithubRepositoryMapper
 import com.vadim.mvptest.utils.UserMapper
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 /**
  * Класс реализующий работу с репозиторием и реализующий функции:
@@ -48,14 +51,16 @@ class GithubRepositoryImpl constructor(
             .map {
                 saveUserToDB(it)
                 it.map(UserMapper::mapUserDtoToEntity)
-            }
+            }.subscribeOn(Schedulers.io())
     }
 
     //Фукнция получения данных из БД Room
     private fun getDataFromDB(): Single<List<GithubUserEntity>>{
+        Log.v("@@@","Start Restore")
         return dataBase.userDao.queryAllUsers().map {
+            Log.v("@@@","Size ${it.size}")
             it.map(UserMapper::mapUserDbToEntity)
-        }
+        }.subscribeOn(Schedulers.io())
     }
     //endregion_______________________________________________________________
 
@@ -75,7 +80,13 @@ class GithubRepositoryImpl constructor(
 
     }
 
-    override fun saveUserToDB(userData: List<GithubUserDTO>) {
+    override fun saveUserToDB(userData: List<GithubUserDTO>){
+        dataBase.userDao.insert(
+            UserMapper.mapUserDtoToDb(userData[0])
+        ).doOnComplete {
+            Log.v("@@@","Finish Saving1")
+        }
+
         Log.v("@@@","Start Saving")
         dataBase.userDao.insertAll(
             userData.map(UserMapper::mapUserDtoToDb)

@@ -61,7 +61,7 @@ class UsersPresenter(
             .subscribeOn(Schedulers.io())
             .subscribe(
             {
-                if (it.size == 0){
+                if (it.isEmpty()){
                     viewState.error("Проверьте интернет соединение")
                 }
                 else{
@@ -73,7 +73,7 @@ class UsersPresenter(
             },
             {
                 Log.e("DevError",it.message.toString())
-                viewState.error("Ошибка!!!")
+                viewState.error("Ошибка загрузки данных!!!")
             })
     }
 
@@ -81,5 +81,9 @@ class UsersPresenter(
         router.exit()
         disposable.dispose()
         return true
+    }
+
+    fun refresh(){
+        loadData()
     }
 }

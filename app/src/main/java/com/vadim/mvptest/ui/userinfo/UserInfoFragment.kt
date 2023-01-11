@@ -52,7 +52,8 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
             user,
             GithubRepositoryImpl(
                 NetworkProvider.usersApi,
-                GithubAppDB.getInstance(requireContext()),
+                //GithubAppDB.getInstance(requireContext()),
+                App.getUserDB(requireContext()),
                 AndroidNetworkStatus(requireContext())),
             App.instance.router)
     }

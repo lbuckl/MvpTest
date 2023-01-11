@@ -30,7 +30,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         UsersPresenter(
             GithubRepositoryImpl(
                 NetworkProvider.usersApi,
-                GithubAppDB.getInstance(requireContext()),
+                App.getUserDB(requireContext()),
+                //GithubAppDB.getInstance(requireContext()),
                 AndroidNetworkStatus(requireContext())
             ),
             App.instance.router
@@ -57,6 +58,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
         vb?.rvUsers?.adapter = adapter
+
+        vb?.button?.setOnClickListener {
+            presenter.refresh()
+        }
     }
 
     /**
