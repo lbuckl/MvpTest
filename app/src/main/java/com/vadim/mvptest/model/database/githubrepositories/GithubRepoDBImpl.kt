@@ -1,4 +1,4 @@
-package com.vadim.mvptest.model.database.githubrepo
+package com.vadim.mvptest.model.database.githubrepositories
 
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 

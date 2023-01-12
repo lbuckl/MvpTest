@@ -81,8 +81,8 @@ class UsersPresenter(
                 }
             },
             {
-                Log.e("DevError",it.message.toString())
-                viewState.error("Ошибка загрузки данных!!!")
+                Log.e("@@@",it.message.toString())
+                viewState.error("Ошибка загрузки данных!")
             })
     }
 

@@ -14,9 +14,11 @@ interface IDataSource {
     //Получить список юзеров
     @GET("/users")
     fun getAllUsers(): Single<List<GithubUserDTO>>
+
     //Получить данные по конкретному пользователя через ввод логина
     @GET("/users/{login}")
     fun getUser(@Path("login") long: String): Single<GithubUserDTO>
+
     //Получение детальной информации о репозиториях пользователя
     @GET
     fun getGithubRepositoryInfo(@Url url: String): Single<UserRepositoryDTO>
