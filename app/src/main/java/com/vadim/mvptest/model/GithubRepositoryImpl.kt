@@ -68,19 +68,29 @@ class GithubRepositoryImpl constructor(
     }
     //endregion_______________________________________________________________
 
-    //Функция получения подробной информации о конкретном пользователе из API
-    override fun getUserById(login: String): Single<GithubUserEntity> {
-        return usersApi.getUser(login)
-            .map(UserMapper::mapUserDtoToEntity)
-    }
-
-    //Функция получения данны о репозитори из API
+    //region работа со списком пользователей________________________________
+    /**
+     * Функция запроса списка репозиториев с подробной информацией
+     * Получает данные о состоянии сети интернет и выдаёт данные:
+     *  - если интернет есть - от API
+     *  - если интернета нет - из БД Room
+     */
     override fun getRepositoryInformation(url: String): Single<List<GithubRepositoryEntity>> {
         return usersApi.getGithubRepositoryInfo(url)
             .map { it.map(GithubRepositoryMapper::mapRepositoryDtoToEntity) }
     }
 
+
+    //endregion
+
+
     override fun getUserFromDB(id: Int) {
 
+    }
+
+    //Функция получения подробной информации о конкретном пользователе из API
+    override fun getUserById(login: String): Single<GithubUserEntity> {
+        return usersApi.getUser(login)
+            .map(UserMapper::mapUserDtoToEntity)
     }
 }

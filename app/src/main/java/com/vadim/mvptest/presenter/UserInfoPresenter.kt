@@ -62,6 +62,14 @@ class UserInfoPresenter(
         repositoryListPresenter.itemClickListener = {
             viewState.showDetails(repositoryListPresenter.repositories[it.pos])
         }
+
+        usersRepo.networkStatus.isOnline()
+            .observeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { isOnline ->
+                if (isOnline) viewState.showInfo("Связь восстановлена")
+                else viewState.showError("Потеряна связь")
+            }
     }
 
     // подписка на поток данных RxJava

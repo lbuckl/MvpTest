@@ -57,8 +57,7 @@ class UsersPresenter(
             .observeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { isOnline ->
-                if (isOnline) viewState.showInfo("Связь восстановлена")
-                else viewState.error("Потеряна связь")
+                if (!isOnline) viewState.error("Потеряна связь")
             }
     }
 

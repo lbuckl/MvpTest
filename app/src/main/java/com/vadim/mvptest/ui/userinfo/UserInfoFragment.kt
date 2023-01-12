@@ -105,11 +105,6 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
         }
     }
 
-    //Отображение ошибки
-    override fun showError(message: String) {
-        Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
-    }
-
     //Показать детальную информацию о репозитории
     override fun showDetails(repInfo: GithubRepositoryEntity) {
         AlertDialog.Builder(requireContext())
@@ -118,5 +113,14 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
             .setNegativeButton("Закрыть"
             ) { dialog, which -> dialog.dismiss() }
             .show()
+    }
+
+    //Отображение ошибки
+    override fun showError(message: String) {
+        Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
+    }
+
+    override fun showInfo(message: String) {
+        Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
     }
 }
