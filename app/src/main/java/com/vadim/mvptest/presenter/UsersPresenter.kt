@@ -58,11 +58,13 @@ class UsersPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { isOnline ->
                 if (!isOnline) viewState.error("Потеряна связь")
+                else viewState.endLoading()
             }
     }
 
     // подписка на поток данных RxJava
     private fun loadData() {
+        viewState.startLoading()
         //Делаем запрос пользователей с сайта ГитХаб
         disposable = usersRepo.getUsers()
             .observeOn(AndroidSchedulers.mainThread())
@@ -83,15 +85,12 @@ class UsersPresenter(
                 Log.e("@@@",it.message.toString())
                 viewState.error("Ошибка загрузки данных!")
             })
+        viewState.endLoading()
     }
 
     fun backPressed(): Boolean {
         router.exit()
         disposable.dispose()
         return true
-    }
-
-    fun refresh(){
-        loadData()
     }
 }

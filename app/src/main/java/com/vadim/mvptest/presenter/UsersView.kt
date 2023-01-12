@@ -13,10 +13,16 @@ import moxy.viewstate.strategy.StateStrategyType
 interface UsersView : MvpView {
     //Функция инициализации фрагмента
     fun init()
+    //Действие при начале загрузки
+    fun startLoading()
+    //Действие при окончании/прерывании загрузки
+    fun endLoading()
     //Функция обновления данных фрагмента
     fun updateList()
     //Действия при возникновении ошибок
     fun error(message:String)
     //Функция для информационных оповещений
     fun showInfo(message:String)
+
+
 }

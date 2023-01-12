@@ -8,7 +8,5 @@ interface GithubRepositoryRest {
 
     fun getUsers(): Single<List<GithubUserEntity>>
 
-    fun getUserById(login: String): Single<GithubUserEntity>
-
     fun getRepositoryInformation(userId: Int, url: String): Single<List<GithubRepositoryEntity>>
 }

@@ -9,9 +9,6 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: UserDBObject)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(users: List<UserDBObject>)
 
     @Query("SELECT * FROM users")

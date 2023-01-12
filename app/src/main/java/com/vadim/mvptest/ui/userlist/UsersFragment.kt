@@ -2,6 +2,7 @@ package com.vadim.mvptest.ui.userlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,10 +57,14 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
         vb?.rvUsers?.adapter = adapter
+    }
 
-        vb?.button?.setOnClickListener {
-            presenter.refresh()
-        }
+    override fun startLoading() {
+        vb?.progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun endLoading() {
+        vb?.progressBar?.visibility = View.GONE
     }
 
     /**

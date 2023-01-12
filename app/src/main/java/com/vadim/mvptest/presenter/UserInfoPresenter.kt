@@ -6,6 +6,7 @@ import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.GithubRepositoryImpl
 import com.vadim.mvptest.ui.IGithubRepositoryListPresenter
+import com.vadim.mvptest.ui.navigation.AndroidScreens
 import com.vadim.mvptest.ui.userinfo.GithubRepositoryItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -42,14 +43,6 @@ class UserInfoPresenter(
 
     val repositoryListPresenter = UsersListPresenter()
 
-    /**
-     * Команда роутеру на действие "назад"
-     */
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
-    }
-
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
@@ -67,8 +60,8 @@ class UserInfoPresenter(
             .observeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { isOnline ->
-                if (isOnline) viewState.showInfo("Связь восстановлена")
-                else viewState.showError("Потеряна связь")
+                if (!isOnline) viewState.showError("Потеряна связь")
+                else viewState.endLoading()
             }
     }
 
@@ -99,5 +92,14 @@ class UserInfoPresenter(
             viewState.showError("Ошибка загрузки репозиториев")
         }
 
+    }
+
+    /**
+     * Команда роутеру на действие "назад"
+     */
+    fun backPressed(): Boolean {
+        router.exit()
+        disposable.dispose()
+        return true
     }
 }

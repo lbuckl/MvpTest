@@ -3,7 +3,7 @@ package com.vadim.mvptest.model
 import android.util.Log
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.database.GithubAppDB
-import com.vadim.mvptest.model.database.githubrepositories.GithubRepoObject
+import com.vadim.mvptest.model.database.githubrepositories.GithubRepoDBImpl
 import com.vadim.mvptest.model.database.users.GithubUserDBImpl
 import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
@@ -24,9 +24,8 @@ class GithubRepositoryImpl constructor(
     private val usersApi: IDataSource,
     private val dataBase: GithubAppDB,
     val networkStatus: INetworkStatus
-): GithubRepositoryRest, GithubUserDBImpl {
-
-
+): GithubRepositoryRest, GithubUserDBImpl, GithubRepoDBImpl {
+    
     //region работа со списком пользователей________________________________
     /**
      * Функция запроса списка пользователей
@@ -37,12 +36,12 @@ class GithubRepositoryImpl constructor(
     override fun getUsers(): Single<List<GithubUserEntity>> {
         return networkStatus.isOnlineSingle().flatMap { isOnline ->
             if (isOnline){
-                Log.v("@@@","Online")
+                Log.v("@@@","Online Users")
                 getDataFromApiAndSaveToDB()
             }
             else {
-                Log.v("@@@","Offline")
-                getDataFromDB()
+                Log.v("@@@","Offline Users")
+                getUsersFromDB()
             }
         }
     }
@@ -51,20 +50,20 @@ class GithubRepositoryImpl constructor(
     private fun getDataFromApiAndSaveToDB(): Single<List<GithubUserEntity>>{
         return usersApi.getAllUsers()
             .map {
-                saveUserToDB(it)
+                saveUsersToDB(it)
                 it.map(UserMapper::mapUserDtoToEntity)
             }.subscribeOn(Schedulers.io())
     }
 
     //Функция сохранения данных пользователя в БД Room
-    override fun saveUserToDB(userData: List<GithubUserDTO>){
+    override fun saveUsersToDB(userData: List<GithubUserDTO>){
         dataBase.userDao.insertAll(
             userData.map(UserMapper::mapUserDtoToDb)
         )
     }
 
     //Фукнция получения данных из БД Room
-    private fun getDataFromDB(): Single<List<GithubUserEntity>>{
+    override fun getUsersFromDB(): Single<List<GithubUserEntity>>{
         return dataBase.userDao.queryAllUsers().map {
             it.map(UserMapper::mapUserDbToEntity)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -81,10 +80,12 @@ class GithubRepositoryImpl constructor(
     override fun getRepositoryInformation(userId:Int, url: String): Single<List<GithubRepositoryEntity>> {
         return networkStatus.isOnlineSingle().flatMap { isOnline ->
             if (isOnline){
+                Log.v("@@@","Online Repo")
                 getRepositoryDataFromApiAndSaveToDB(userId,url)
             }
             else {
-                getRepositoryInformationFromDB(userId)
+                Log.v("@@@","Offline Repo")
+                getRepositoryFromDB(userId)
             }
         }
     }
@@ -93,13 +94,13 @@ class GithubRepositoryImpl constructor(
     private fun getRepositoryDataFromApiAndSaveToDB(userId:Int, url: String): Single<List<GithubRepositoryEntity>>{
         return usersApi.getGithubRepositoryInfo(url)
             .map {
-                saveRepositoryInformationToDB(userId,it)
+                saveRepositoryToDB(userId,it)
                 it.map(GithubRepositoryMapper::mapRepositoryDtoToEntity)
             }.subscribeOn(Schedulers.io())
     }
 
     //Функция сохранения данных репозитория в БД Room
-    private fun saveRepositoryInformationToDB(userId:Int, repoData: UserRepositoryDTO){
+    override fun saveRepositoryToDB(userId:Int, repoData: UserRepositoryDTO){
         dataBase.repoDao.insertAllRepo(
             repoData.map {
                     GithubRepositoryMapper.mapRepoDtoToDb(userId,it)
@@ -108,21 +109,10 @@ class GithubRepositoryImpl constructor(
     }
 
     //Функция получения данных репозитория из БД Room
-    private fun getRepositoryInformationFromDB(userId: Int):Single<List<GithubRepositoryEntity>> {
+    override fun getRepositoryFromDB(userId: Int):Single<List<GithubRepositoryEntity>> {
         return dataBase.repoDao.queryAllRepos(userId).map {
             it.map(GithubRepositoryMapper::mapRepoDbToEntity)
-        }
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
     //endregion
-
-
-    override fun getUserFromDB(id: Int) {
-
-    }
-
-    //Функция получения подробной информации о конкретном пользователе из API
-    override fun getUserById(login: String): Single<GithubUserEntity> {
-        return usersApi.getUser(login)
-            .map(UserMapper::mapUserDtoToEntity)
-    }
 }
