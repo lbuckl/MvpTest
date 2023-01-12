@@ -23,6 +23,4 @@ interface UsersView : MvpView {
     fun error(message:String)
     //Функция для информационных оповещений
     fun showInfo(message:String)
-
-
 }

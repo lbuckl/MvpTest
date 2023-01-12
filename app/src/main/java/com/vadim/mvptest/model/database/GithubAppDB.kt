@@ -7,6 +7,11 @@ import com.vadim.mvptest.model.database.githubrepositories.GithubRepoObject
 import com.vadim.mvptest.model.database.users.UserDAO
 import com.vadim.mvptest.model.database.users.UserDBObject
 
+/**
+ * Класс для реализации работы с Базой данных
+ * @param userDao - работа с БД Пользователей Гитхаб
+ * @param repoDao - работа с БД Репозиториев Гитхаб
+ */
 @Database(
     entities = [UserDBObject::class, GithubRepoObject::class],
     version = 3

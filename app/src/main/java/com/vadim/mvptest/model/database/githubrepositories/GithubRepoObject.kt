@@ -5,6 +5,10 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.vadim.mvptest.model.database.users.UserDBObject
 
+/**
+ * Класс данных Репозиторий Гитхаб для хранения в БД
+ * Связан с класом UserDBObject при помощи id
+ */
 @Entity(
     //Конструкция для связки id пользователя с id репозитория
     foreignKeys = [ForeignKey(

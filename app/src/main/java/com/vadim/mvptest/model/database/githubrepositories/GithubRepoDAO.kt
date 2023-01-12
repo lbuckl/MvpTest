@@ -6,6 +6,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.rxjava3.core.Single
 
+/**
+ * Интерфейс для реализации запросов в БД Репозиториев Гитхаб
+ */
 @Dao
 interface GithubRepoDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

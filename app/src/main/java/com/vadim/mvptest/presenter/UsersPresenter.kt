@@ -2,13 +2,12 @@ package com.vadim.mvptest.presenter
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
-import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.GithubRepositoryImpl
+import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.ui.IUserListPresenter
 import com.vadim.mvptest.ui.navigation.AndroidScreens
 import com.vadim.mvptest.ui.userlist.UserItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
@@ -44,15 +43,18 @@ class UsersPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-
+        //Первичная инициализация
         viewState.init()
 
+        //Загрузка списка юзеров
         loadData()
 
+        //Кликкер по списку юзеров
         usersListPresenter.itemClickListener = {
             router.navigateTo(AndroidScreens.userInfo(usersListPresenter.users[it.pos]))
         }
 
+        //Слежение за состоянием связи
         usersRepo.networkStatus.isOnline()
             .observeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())

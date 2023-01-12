@@ -74,16 +74,17 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter?.notifyDataSetChanged()
     }
 
+    //Отображение ошибки
     override fun error(message: String) {
         Toast.makeText(requireContext(),message, Toast.LENGTH_LONG).show()
     }
 
+    //Отображение информации
     override fun showInfo(message: String) {
         Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     * Функция нажатия кнопки "Назад"
-     */
+
+    //Функция нажатия кнопки "Назад"
     override fun backPressed() = presenter.backPressed()
 }

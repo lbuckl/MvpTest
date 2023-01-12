@@ -12,8 +12,8 @@ import com.vadim.mvptest.R
 import com.vadim.mvptest.databinding.FragmentUserInfoBinding
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.AndroidNetworkStatus
-import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.GithubRepositoryImpl
+import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.requests.NetworkProvider
 import com.vadim.mvptest.presenter.UserInfoPresenter
 import com.vadim.mvptest.presenter.UserInfoView
@@ -71,9 +71,6 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
         return binding.root
     }
 
-    //Действие при нажатии кнопки "Назад"
-    override fun backPressed() = presenter.backPressed()
-
     //Инициализация фрагмента
     override fun init() {
         adapter = GithubRepositoryItemAdapter(presenter.repositoryListPresenter)
@@ -120,7 +117,11 @@ class UserInfoFragment: MvpAppCompatFragment(),UserInfoView, BackButtonListener 
         Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show()
     }
 
+    //Отображение информации
     override fun showInfo(message: String) {
         Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
     }
+
+    //Действие при нажатии кнопки "Назад"
+    override fun backPressed() = presenter.backPressed()
 }

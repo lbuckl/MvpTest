@@ -3,10 +3,9 @@ package com.vadim.mvptest.presenter
 import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.vadim.mvptest.domain.GithubRepositoryEntity
-import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.model.GithubRepositoryImpl
+import com.vadim.mvptest.model.GithubUserEntity
 import com.vadim.mvptest.ui.IGithubRepositoryListPresenter
-import com.vadim.mvptest.ui.navigation.AndroidScreens
 import com.vadim.mvptest.ui.userinfo.GithubRepositoryItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
@@ -46,16 +45,18 @@ class UserInfoPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        viewState.startLoading()
-
+        //Первичная инициализация
         viewState.init()
 
+        //Загрузка списка репоизториев
         loadData()
 
+        //Кликкер по списку репозиториев
         repositoryListPresenter.itemClickListener = {
             viewState.showDetails(repositoryListPresenter.repositories[it.pos])
         }
 
+        //Слежение за состоянием связи
         usersRepo.networkStatus.isOnline()
             .observeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
@@ -67,6 +68,7 @@ class UserInfoPresenter(
 
     // подписка на поток данных RxJava
     private fun loadData() {
+        viewState.startLoading()
         viewState.showBaseInformation(user.avatarUrl,user.login)
 
         if (user.repositoryUrl != null){
@@ -88,10 +90,9 @@ class UserInfoPresenter(
                     })
         }
         else {
-            viewState.endLoading()
             viewState.showError("Ошибка загрузки репозиториев")
         }
-
+        viewState.endLoading()
     }
 
     /**
