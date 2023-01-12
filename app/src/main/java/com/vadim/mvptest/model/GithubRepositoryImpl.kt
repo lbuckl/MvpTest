@@ -56,17 +56,18 @@ class GithubRepositoryImpl constructor(
             }.subscribeOn(Schedulers.io())
     }
 
+    //Функция сохранения данных пользователя в БД Room
+    override fun saveUserToDB(userData: List<GithubUserDTO>){
+        dataBase.userDao.insertAll(
+            userData.map(UserMapper::mapUserDtoToDb)
+        )
+    }
+
     //Фукнция получения данных из БД Room
     private fun getDataFromDB(): Single<List<GithubUserEntity>>{
         return dataBase.userDao.queryAllUsers().map {
             it.map(UserMapper::mapUserDbToEntity)
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-    }
-
-    override fun saveUserToDB(userData: List<GithubUserDTO>){
-            dataBase.userDao.insertAll(
-                userData.map(UserMapper::mapUserDtoToDb)
-            )
     }
     //endregion_______________________________________________________________
 
@@ -83,11 +84,12 @@ class GithubRepositoryImpl constructor(
                 getRepositoryDataFromApiAndSaveToDB(userId,url)
             }
             else {
-                getRepositoryDataFromApiAndSaveToDB(userId,url)
+                getRepositoryInformationFromDB(userId)
             }
         }
     }
 
+    //Функция получения данных от API и сохранеия их в БД Room
     private fun getRepositoryDataFromApiAndSaveToDB(userId:Int, url: String): Single<List<GithubRepositoryEntity>>{
         return usersApi.getGithubRepositoryInfo(url)
             .map {
@@ -96,6 +98,7 @@ class GithubRepositoryImpl constructor(
             }.subscribeOn(Schedulers.io())
     }
 
+    //Функция сохранения данных репозитория в БД Room
     private fun saveRepositoryInformationToDB(userId:Int, repoData: UserRepositoryDTO){
         dataBase.repoDao.insertAllRepo(
             repoData.map {
@@ -104,6 +107,12 @@ class GithubRepositoryImpl constructor(
         )
     }
 
+    //Функция получения данных репозитория из БД Room
+    private fun getRepositoryInformationFromDB(userId: Int):Single<List<GithubRepositoryEntity>> {
+        return dataBase.repoDao.queryAllRepos(userId).map {
+            it.map(GithubRepositoryMapper::mapRepoDbToEntity)
+        }
+    }
     //endregion
 
 
