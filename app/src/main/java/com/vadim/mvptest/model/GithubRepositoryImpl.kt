@@ -3,9 +3,11 @@ package com.vadim.mvptest.model
 import android.util.Log
 import com.vadim.mvptest.domain.GithubRepositoryEntity
 import com.vadim.mvptest.model.database.GithubAppDB
+import com.vadim.mvptest.model.database.githubrepositories.GithubRepoObject
 import com.vadim.mvptest.model.database.users.GithubUserDBImpl
 import com.vadim.mvptest.model.requests.GithubRepositoryRest
 import com.vadim.mvptest.model.requests.IDataSource
+import com.vadim.mvptest.model.requests.dto.repository.UserRepositoryDTO
 import com.vadim.mvptest.model.requests.dto.user.GithubUserDTO
 import com.vadim.mvptest.utils.GithubRepositoryMapper
 import com.vadim.mvptest.utils.UserMapper
@@ -75,11 +77,32 @@ class GithubRepositoryImpl constructor(
      *  - если интернет есть - от API
      *  - если интернета нет - из БД Room
      */
-    override fun getRepositoryInformation(url: String): Single<List<GithubRepositoryEntity>> {
-        return usersApi.getGithubRepositoryInfo(url)
-            .map { it.map(GithubRepositoryMapper::mapRepositoryDtoToEntity) }
+    override fun getRepositoryInformation(userId:Int, url: String): Single<List<GithubRepositoryEntity>> {
+        return networkStatus.isOnlineSingle().flatMap { isOnline ->
+            if (isOnline){
+                getRepositoryDataFromApiAndSaveToDB(userId,url)
+            }
+            else {
+                getRepositoryDataFromApiAndSaveToDB(userId,url)
+            }
+        }
     }
 
+    private fun getRepositoryDataFromApiAndSaveToDB(userId:Int, url: String): Single<List<GithubRepositoryEntity>>{
+        return usersApi.getGithubRepositoryInfo(url)
+            .map {
+                saveRepositoryInformationToDB(userId,it)
+                it.map(GithubRepositoryMapper::mapRepositoryDtoToEntity)
+            }.subscribeOn(Schedulers.io())
+    }
+
+    private fun saveRepositoryInformationToDB(userId:Int, repoData: UserRepositoryDTO){
+        dataBase.repoDao.insertAllRepo(
+            repoData.map {
+                    GithubRepositoryMapper.mapRepoDtoToDb(userId,it)
+            }
+        )
+    }
 
     //endregion
 

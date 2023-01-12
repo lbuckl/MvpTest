@@ -18,7 +18,7 @@ import com.vadim.mvptest.model.database.users.UserDBObject
 data class GithubRepoObject(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    var userId: String,
+    var userId: Int,
     val name: String,
     val fork_count: Int,
     val stars_count: Int

@@ -20,7 +20,8 @@ class App : Application() {
                     context,
                     GithubAppDB::class.java,
                     GITHUB_USERS_DB_NAME
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
             } else{
                 userDB ?: throw RuntimeException(
                     "Database has not been created. Please call create(context)")
